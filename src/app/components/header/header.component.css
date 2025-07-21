@@ -1,0 +1,381 @@
+body {
+  font-family: 'Poppins', sans-serif;
+}
+.header {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nav-brand .brand-link {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+
+.nav-item {
+  margin: 0;
+}
+
+.nav-link {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: #f0f0f0;
+  color: #007bff;
+}
+
+.nav-link.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 3px 0;
+  transition: 0.3s;
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 768px) {
+  .nav-menu {
+    position: fixed;
+    left: -100%;
+    top: 70px;
+    flex-direction: column;
+    background-color: white;
+    width: 100%;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+    padding: 2rem 0;
+  }
+
+  .nav-menu.active {
+    left: 0;
+  }
+
+  .nav-item {
+    margin: 1rem 0;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}
+
+
+/* New one */
+.header {
+  background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #CD853F 100%);
+  box-shadow: 0 4px 20px rgba(139, 69, 19, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 3px solid #654321;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Logo and Brand Styling */
+.nav-brand .brand-link {
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.nav-brand .brand-link:hover {
+  transform: scale(1.05);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.coffee-icon {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+.cup {
+  width: 30px;
+  height: 25px;
+  background: linear-gradient(to bottom, #F5DEB3 0%, #DEB887 100%);
+  border-radius: 0 0 15px 15px;
+  position: relative;
+  border: 2px solid #8B4513;
+}
+
+.cup::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 25px;
+  height: 8px;
+  background: #8B4513;
+  border-radius: 10px 10px 0 0;
+}
+
+.cup::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  right: -8px;
+  width: 8px;
+  height: 12px;
+  border: 2px solid #8B4513;
+  border-left: none;
+  border-radius: 0 8px 8px 0;
+}
+
+.steam {
+  position: absolute;
+  width: 2px;
+  height: 15px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 1px;
+  animation: steam 2s ease-in-out infinite;
+}
+
+.steam1 {
+  left: 8px;
+  animation-delay: 0s;
+}
+
+.steam2 {
+  left: 14px;
+  animation-delay: 0.5s;
+}
+
+.steam3 {
+  left: 20px;
+  animation-delay: 1s;
+}
+
+@keyframes steam {
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1.1);
+  }
+}
+
+.brand-text {
+  font-size: 1.8rem;
+  font-weight: bold;
+  background: linear-gradient(45deg, #FFD700, #FFA500, #FF6347);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  /* font-family: 'Georgia', serif; */
+  letter-spacing: 1px;
+}
+
+/* Navigation Menu Styling */
+.nav-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 1rem;
+}
+
+.nav-item {
+  margin: 0;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #FFF8DC;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.nav-link:hover {
+  background: rgba(255, 215, 0, 0.2);
+  color: #FFD700;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+}
+
+.nav-link.active {
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  color: #8B4513;
+  font-weight: bold;
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+}
+
+.nav-icon {
+  font-size: 1.2rem;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+/* Hamburger Menu Styling */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.hamburger:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  margin: 3px 0;
+  transition: 0.3s;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+  }
+
+  .brand-text {
+    font-size: 1.4rem;
+  }
+
+  .coffee-icon {
+    width: 35px;
+    height: 35px;
+  }
+
+  .cup {
+    width: 25px;
+    height: 20px;
+  }
+
+  .nav-menu {
+    position: fixed;
+    left: -100%;
+    top: 70px;
+    flex-direction: column;
+    background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+    width: 100%;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 10px 27px rgba(139, 69, 19, 0.5);
+    padding: 2rem 0;
+    border-top: 2px solid #FFD700;
+  }
+
+  .nav-menu.active {
+    left: 0;
+  }
+
+  .nav-item {
+    margin: 1rem 0;
+  }
+
+  .nav-link {
+    justify-content: center;
+    margin: 0 1rem;
+    font-size: 1.1rem;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}
+
+/* Additional animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header {
+  animation: fadeInDown 0.6s ease-out;
+}
+
+/* Hover effect for the entire navbar */
+.navbar:hover .coffee-icon .steam {
+  animation-duration: 1s;
+}

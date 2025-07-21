@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+/* .login-header{
+    background-color: blanchedalmond;
+} */
+
+.toggle-icon {
+  position: absolute !important;
+  right: -8px !important;
+  cursor: pointer !important;
+  color: #000000 !important;
+  bottom: 8px !important;
+}
+
+.cart-panel {
+  right: 0px !important;
+  padding: 5px !important;
+}
+
+.cart-header {
+  background-color: #ff9800 !important;
+}
+
+.label-white {
+  color: #ffffff !important;
+}
+
+.order-btn {
+  padding-right: 27px !important;
+  margin-top: 25px !important;
+}

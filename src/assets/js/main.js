@@ -1,0 +1,225 @@
+  
+  /* show hide div in search form*/
+  $(".moreless-button").click(function () {
+                $(".moretext").slideToggle();
+                if ($(".moreless-button").text() == "Show more +") {
+                    $(this).text("Show less -");
+                } else {
+                    $(this).text("Show more +");
+                }
+            });
+	  /* end show hide div in search form*/		
+			
+			  /*Pop up search form  select*/
+			     $("#srhSelect").select2({
+                dropdownParent: $("#exampleModal"),
+            });
+			  /* end pop up search form select*/
+			  
+			  /*list table check box checked div show*/
+			    $(".ac-close").click(function () {
+                $(this).parent().hide();
+                var id = $.trim(
+                    $(this)
+                        .parent()
+                        .prop("class")
+                        .match(/ (card.)+?/g)[0]
+                );
+                $("#" + id).prop("checked", false);
+            });
+	
+		  
+		    $(".filter-action").hide();
+            $(".coupon_question").click(function () {
+                if ($(this).is(":checked")) {
+                    $(".filter-action").show();
+                } else {
+                    $(".filter-action").hide();
+                }
+            });
+			
+				  /*end list table check box checked div show*/
+				  
+				  
+				  /*table height as per screen*/        
+            $("#table-height").height($(window).height() - 180);
+   
+            $(window).resize(function () {
+                $("#table-height").height($(window).height() - 180);
+            });
+      
+	  	  /*end table height as per screen*/       
+	  
+	  	  /*form validation*/       
+	          // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function () {
+                "use strict";
+
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.querySelectorAll(".needs-validation");
+
+                // Loop over them and prevent submission
+                Array.prototype.slice.call(forms).forEach(function (form) {
+                    form.addEventListener(
+                        "submit",
+                        function (event) {
+                            if (!form.checkValidity()) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+
+                            form.classList.add("was-validated");
+                        },
+                        false
+                    );
+                });
+            })();
+	  	  /*end form validation*/    
+		  
+		  
+		  	  /*side menu arrow toggle*/ 
+		    function toggleSidebar(ref) {
+                document.getElementById("sidebar3").classList.toggle("active");
+            }
+				    /*end side menu arrow toggle*/ 
+					
+				  	  /*page tips close icon */ 	
+					     $(document).ready(function () {
+                $(".right-cl1").click(function () {
+                    $(".tip3").removeClass("show");
+                });
+            });
+			  	 /* end page tips close icon */ 	
+				 
+				   /*page tips not close on click on dropdown*/ 
+				$(".tip3 ").click(function (e) {
+					e.stopPropagation();
+				});
+			     /*end page tips not close on click on dropdown*/ 
+				 
+				 
+				 	   /*end page tips show*/ 
+				    $(".tip-left").on("click", function () {
+                $(".tip3").toggleClass("show");
+            });
+				   /*end page tips*/
+
+	 	   /*Inside page tips ans pop up click back button show page tip*/ 
+          $(document).ready(function () {
+                $(".ans-back").click(function () {
+                    $(".ans-1").removeClass("tip-ans");
+                    $(".ans-2").removeClass("tip-ans");
+                    $(".ans-3").removeClass("tip-ans");
+                    $(".tip-box").removeClass("show2");
+                });
+            });				   
+	   /*End Inside page tips ans pop up click back button show page tip*/ 
+		
+		
+			/*Inside page tips click text show ans pop up*/ 
+     $("#ans-1").on("click", function () {
+                $(".tip-box").toggleClass("show2");
+                $(".ans-1").toggleClass("tip-ans");
+            });
+            $("#ans-2").on("click", function () {
+                $(".tip-box").toggleClass("show2");
+                $(".ans-2").toggleClass("tip-ans");
+            });
+            $("#ans-3").on("click", function () {
+                $(".tip-box").toggleClass("show2");
+                $(".ans-3").toggleClass("tip-ans");
+            });
+				/*end Inside page tips click text show ans pop up*/ 
+				
+				
+				/*Add class in body tag - click in sidebar arrow */ 
+				  $(".toggle-btn").on("click", function () {
+                $("body").toggleClass("sidebar-icon-only");
+            });
+			/*End Add class in body tag - click in sidebar arrow */ 
+			
+				/*Search pop up - hide show div as per select */ 
+			   $(document).on("change", ".div-toggle", function () {
+                var target = $(this).data("target");
+                var show = $("option:selected", this).data("show");
+                $(target).children().addClass("hide");
+                $(show).removeClass("hide");
+            });
+            $(document).ready(function () {
+                $(".div-toggle").trigger("change");
+            });
+		/*End Search pop up - hide show div as per select */ 
+		
+			/*Mobile screen- click menu icon add active class in  lft-sidebar div*/ 
+		            $(".mob-menu").on("click", function () {
+                $(".lft-sidebar").toggleClass("active");
+            });
+			/*End Mobile screen- click menu icon add active class in  lft-sidebar div*/ 
+			
+			/*mobile device - Logo side plus icon dropdown menu toggle */ 
+				var open = $('.mob-header'),
+				a = $('ul').find('div');
+
+				console.log(a.hasClass('active'));
+
+				open.click(function(e){
+				e.preventDefault();
+				var $this = $(this),
+				speed = 500;
+				if($this.hasClass('active') === true) {
+				$this.removeClass('active').next('.tp-link').slideUp(speed);
+				} else if(a.hasClass('active') === false) {
+				$this.addClass('active').next('.tp-link').slideDown(speed);
+				} else {
+				a.removeClass('active').next('.tp-link').slideUp(speed);
+				$this.addClass('active').next('.tp-link').delay(speed).slideDown(speed);
+				}
+				});
+
+		/*end mobile device - Logo side plus icon dropdown menu toggle */ 
+		
+		
+		 /*logo side plus icon dropdown - click anywhere in dropdown not close */ 
+		         $(".wm-add ").click(function (e) {
+                e.stopPropagation();
+            });
+		 /*end logo side plus icon dropdown - click anywhere in dropdown not close */
+		 
+		 
+		   $(document).on('focus', '.datepicker',function(){
+            $(this).datepicker({
+                todayHighlight:true,
+                format:'dd-mm-yyyy',
+                autoclose:true
+            })
+        });
+		
+		
+				/*Add class in body tag - click in sidebar arrow */ 
+				  $(".mob-menu").on("click", function () {
+                $(".mob-menu").toggleClass("active");
+            });
+			/*End Add class in body tag - click in sidebar arrow */ 
+			
+			
+			
+							/*Search pop up - hide show div as per select */ 
+			   $(document).on("change", ".div-toggle1", function () {
+                var target = $(this).data("target");
+                var show = $("option:selected", this).data("show");
+                $(target).children().addClass("hide");
+                $(show).removeClass("hide");
+            });
+            $(document).ready(function () {
+                $(".div-toggle1").trigger("change");
+            });
+
+      
+            $(".lft-scroll .navs-top .nav-item").click(function(){
+                $("body").removeClass("sidebar-icon-only");
+                $(".lft-sidebar").removeClass("active");
+            });
+            $(".toggle-btn").click(function(){
+                $(".collapse").removeClass("show");
+            });
+		/*End Search pop up - hide show div as per select */ 

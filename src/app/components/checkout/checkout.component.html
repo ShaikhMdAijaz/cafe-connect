@@ -1,0 +1,62 @@
+<ng-container *ngIf="isInvoiceVisible">
+    <div id="invoice" class="receipt-container" *ngIf="userBill.length > 0">
+        <hr>
+        <!-- Centered Café Header -->
+        <div class="receipt-header">
+            <h2>Café Connect</h2>
+            <p>123 Brew Street, Beanville, India</p>
+            <p>GST No: 29AAAAA0000A1Z5</p>
+            <h3>RECEIPT</h3>
+        </div>
+
+        <!-- Two-line Details -->
+        <div class="receipt-details">
+            <div class="left-detail">
+                <p><strong>Name:</strong> {{ customerName || 'Shaikh Aijaz' }}</p>
+                <p><strong>Mobile:</strong> {{ customerMobile || '9876543210' }}</p>
+            </div>
+            <div class="right-detail">
+                <p><strong>Invoice No:</strong> {{ billNo }}</p>
+                <p><strong>Date:</strong> {{ todayDate | date: 'dd MMM yyyy' }}</p>
+            </div>
+        </div>
+
+        <!-- Centered Table -->
+        <table class="receipt-table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of userBill">
+                    <td>{{ item.description }}</td>
+                    <td>₹{{ item.mrp }}</td>
+                    <td>{{ item.qty }}</td>
+                    <td>₹{{ item.qty * item.mrp }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Right-aligned Summary -->
+        <div class="receipt-summary">
+            <p><strong>Sub-Total:</strong> ₹{{ totalAmount }}</p>
+            <p><strong>CGST (2.5%):</strong> ₹{{ cgstAmount }}</p>
+            <p><strong>SGST (2.5%):</strong> ₹{{ sgstAmount }}</p>
+            <p><strong>Mode:</strong> Cash</p>
+            <p><strong>Total:</strong> ₹{{ totalAmount + cgstAmount + sgstAmount }}</p>
+        </div>
+
+        <!-- Centered Footer -->
+        <div class="receipt-footer">
+            <p>** Thank you for visiting Vintage Café!! **</p>
+            <p>Time: {{ todayDate | date: 'HH:mm' }}</p>
+            <button class="view-cart-btn" style="margin-top: 0px !important;" (click)="onClickCustomizeOrder()">🛒 Customize order</button>
+            <button (click)="printBill()">🖨 Print</button>
+        </div>
+
+    </div>
+</ng-container>

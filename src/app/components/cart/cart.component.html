@@ -1,0 +1,51 @@
+<div class="cart-panel" *ngIf="isOpen">
+  <div class="cart-header">
+    <h2 class="label-white">Your Cart</h2>
+    <button class="close-btn" (click)="closeCart()">×</button>
+    <!-- <a class="label-white" (click)="clearCart()">Clear All</a> -->
+  </div>
+  <!-- <div class="cart-actions">
+  <button class="clear-btn" (click)="clearCart()">Clear All</button>
+</div> -->
+
+  <div class="cart-body">
+    <div class="subcategory-buttons">
+      <button [ngClass]="{ 'active': orderWillBe === 'dine-in' }" (click)="filterBySubCategory('dine-in')">
+        Dine-in
+      </button>
+      <button [ngClass]="{ 'active': orderWillBe === 'take-away' }" (click)="filterBySubCategory('take-away')">
+        Take-away
+      </button>
+      <!-- <button (click)="confirmClearAll()" class="clear-cart" *ngIf="cartItems.length > 0">clear-all</button> -->
+      <a (click)="confirmClearAll()" class="clear-cart" *ngIf="cartItems.length > 0">clear-all</a>
+    </div>
+    <div class="empty-cart-container" *ngIf="cartItems.length === 0">
+      <div class="empty-cart-message">
+        <img src="assets/images/empty-cart.jpg" alt="Empty Cart" class="empty-cart-img" />
+        <!-- <p class="empty-cart-text">Oops! Your cart is empty. You haven’t placed any order yet.</p> -->
+      </div>
+    </div>
+    <div *ngFor="let item of cartItems" class="cart-item">
+      <div class="veg-nonveg-icon">
+            <img *ngIf="item.subType === 'veg'" src="assets/images/veg-icon.webp" alt="Veg" />
+            <img *ngIf="item.subType === 'non-veg'" src="assets/images/non-veg-icon.png" alt="Non-Veg" />
+          </div>
+      <img [src]="item.image" alt="Product" />
+      <div class="details">
+        <h4>{{ item.name }}</h4>
+        <p>₹ {{ item.rate }}</p>
+        <div class="quantity">
+          <button (click)="decrement(item)">-</button>
+          {{ item.qty }}
+          <button (click)="increment(item)">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cart-footer">
+    🛒 {{ totalItems }} Items | ₹ {{ totalAmount }}
+    <button class="addProceed-btn" (click)="closeCart()" *ngIf="cartItems.length === 0">Buy Now</button>
+    <button class="addProceed-btn" (click)="onClickAddToProceed()" *ngIf="cartItems.length > 0">Add To Proceed</button>
+  </div>
+</div>

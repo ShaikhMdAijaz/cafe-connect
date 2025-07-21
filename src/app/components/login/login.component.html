@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="login-container" style="background: #8b4513 !important;">
+    <div class="coffee-icon" style="margin: 0 auto !important; display: block !important;">
+            <div class="cup" style="border: 2px solid #ffffff !important;">
+              <div class="steam steam1" style="left: 10px !important"></div>
+              <div class="steam steam2" style="left: 20px !important"></div>
+              <div class="steam steam3" style="left: 30px !important"></div>
+            </div>
+          </div>
+          <!-- <span class="brand-text">Welcome to Café Connect</span> -->
+          <span class="login-header">Welcome to Café Connect</span>
+          <!-- <span class="login-header">Connect with your favorite cafes</span> -->
+          <!-- <p class="text-gray-600 text-lg max-w-md mx-auto">
+            Discover amazing coffee shops, order ahead, and never miss your perfect brew
+          </p> -->
+  <!-- <h2>Welcome to Café Connect</h2> -->
+
+  <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <label style="color: white;">Name*</label>
+    <input type="text" name="name" [(ngModel)]="user.name" required />
+    
+    <label style="color: white;">Mobile Number*</label>
+    <input type="tel" name="mobile" [(ngModel)]="user.mobile" required pattern="[6-9]\\d{9}" />
+
+    <div *ngIf="showOtpField" style="position: relative !important;">
+      <label style="color: white;">OTP</label>
+      <input [type]="showOtp ? 'text' : 'password'" name="otp" [(ngModel)]="user.otp" maxlength="6" />
+      <span class="toggle-icon" (click)="toggleOtpVisibility()">
+      <i [class]="!showOtp ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+    </span>
+    </div>
+
+    <button type="submit" style="background-color: #d39445 !important;">
+      {{ showOtpField ? 'Verify OTP' : 'Get OTP' }}
+    </button>
+  </form>
+
+  <p class="signup-link" style="color: white !important;">
+    New to Café Connect? <a routerLink="/signup" style="color: #deb887 !important; ">Create an account</a>
+  </p>
+</div>

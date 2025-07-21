@@ -1,0 +1,3 @@
+$(".cli-show").on("click", function () {
+    $(".content2").toggle();
+});
