@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({
@@ -10,7 +11,7 @@ export class CartComponent implements OnInit {
 
   @Input() isOpen = false;
 
-  constructor(public cartService: CartService) { }
+  constructor(public cartService: CartService,private toastr: ToastrService) { }
 
   orderWillBe: string = 'dine-in';
   ngOnInit(): void {
@@ -65,9 +66,14 @@ export class CartComponent implements OnInit {
     this.closeCart(); // Optionally close the cart after proceeding
   }
   confirmClearAll() {
-    const confirmClear = confirm("Are you sure you want to clear all items from the cart?");
-    if (confirmClear) {
-      this.clearCart(); // Your method to clear the cart
+    if(this.cartItems.length>0){
+      const confirmClear = confirm("Are you sure you want to clear all items from the cart?");
+      if (confirmClear) {
+        this.clearCart(); // Your method to clear the cart
+      }
+    }
+    else{
+      this.toastr.error("There is no item to clear");
     }
   }
 

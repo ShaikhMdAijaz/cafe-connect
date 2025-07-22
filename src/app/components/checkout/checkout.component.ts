@@ -18,6 +18,7 @@ export class CheckoutComponent implements OnInit {
   @Input() totalAmount: any=0;
   @Input() cgstAmount: any=0;
   @Input() sgstAmount: any=0;
+  @Input() order: any="";
   public customerName: string = '';
   public customerMobile: string = '';
   todayDate: Date = new Date();

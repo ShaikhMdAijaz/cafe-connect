@@ -111,4 +111,4 @@
 <app-cart [isOpen]="showCart" (close)="closeCartPop($event)" (addToProceed)="addToProceed($event)"
   (itemIncrementDecrement)="itemIncrementDecrement($event)"></app-cart>
 <app-checkout [userBill]="userBill" [totalAmount]="totalAmount" [cgstAmount]="cgstAmount" [sgstAmount]="sgstAmount"
-  [isInvoiceVisible]="isInvoiceVisible" (customizeOrder)="customizeOrder($event)"></app-checkout>
+  [isInvoiceVisible]="isInvoiceVisible" (customizeOrder)="customizeOrder($event)" [order]="order"></app-checkout>

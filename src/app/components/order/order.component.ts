@@ -223,6 +223,7 @@ export class OrderComponent implements OnInit {
   }
 
   public isInvoiceVisible: boolean = false;
+  public order:any="";
   addToProceed(event) {
     if (event != null && event != undefined) {
       this.totalAmount = 0;
@@ -263,6 +264,7 @@ export class OrderComponent implements OnInit {
         this.userBill = this.userBill.filter(bill => bill.qty > 0);
       }
       this.isInvoiceVisible = event.flag; // Show invoice section
+      this.order = event.order == 'take-away' ? 'Take-away' : 'Dine-in'; 
       //this.router.navigate(["checkout"]);
     }
   }
@@ -404,12 +406,12 @@ export class OrderComponent implements OnInit {
   selectedSubCategory: string = '';
 
   categories = [
-    { name: 'All', count: 20 },
-    { name: 'Breakfast', count: 5 },
-    { name: 'Burger', count: 3 },
-    { name: 'Hot Beverages', count: 3 },
-    { name: 'Cold Beverages', count: 3 },
-    { name: 'Dessert', count: 6 },
+    { name: 'All', count: this.breakfastMenu.length + this.burgerMenu.length + this.hotMenu.length + this.coldMenu.length + this.dessertMenu.length },
+    { name: 'Breakfast', count: this.breakfastMenu.length },
+    { name: 'Burger', count: this.burgerMenu.length },
+    { name: 'Hot Beverages', count: this.hotMenu.length},
+    { name: 'Cold Beverages', count: this.coldMenu.length },
+    { name: 'Dessert', count: this.dessertMenu.length },
   ];
 
   public isBreakfastFlag: boolean = false;

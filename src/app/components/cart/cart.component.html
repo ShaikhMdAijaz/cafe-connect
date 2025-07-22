@@ -17,7 +17,8 @@
         Take-away
       </button>
       <!-- <button (click)="confirmClearAll()" class="clear-cart" *ngIf="cartItems.length > 0">clear-all</button> -->
-      <a (click)="confirmClearAll()" class="clear-cart" *ngIf="cartItems.length > 0">clear-all</a>
+      <a (click)="confirmClearAll()" [attr.class]="cartItems.length > 0 ? 'clear-cart' : 'disabled-btn'" 
+        [disabled]="cartItems.length == 0">clear-all</a>
     </div>
     <div class="empty-cart-container" *ngIf="cartItems.length === 0">
       <div class="empty-cart-message">
@@ -26,13 +27,9 @@
       </div>
     </div>
     <div *ngFor="let item of cartItems" class="cart-item">
-      <div class="veg-nonveg-icon">
-            <img *ngIf="item.subType === 'veg'" src="assets/images/veg-icon.webp" alt="Veg" />
-            <img *ngIf="item.subType === 'non-veg'" src="assets/images/non-veg-icon.png" alt="Non-Veg" />
-          </div>
       <img [src]="item.image" alt="Product" />
       <div class="details">
-        <h4>{{ item.name }}</h4>
+        <h4>{{ item.description }}</h4>
         <p>₹ {{ item.rate }}</p>
         <div class="quantity">
           <button (click)="decrement(item)">-</button>
@@ -40,6 +37,10 @@
           <button (click)="increment(item)">+</button>
         </div>
       </div>
+      <div class="veg-nonveg-icon">
+            <img *ngIf="item.subType === 'veg'" src="assets/images/veg-icon.webp" alt="Veg" />
+            <img *ngIf="item.subType === 'non-veg'" src="assets/images/non-veg-icon.png" alt="Non-Veg" />
+          </div>
     </div>
   </div>
 
