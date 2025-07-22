@@ -10,7 +10,7 @@ import { ToastrService } from "ngx-toastr";
   //standalone: true,
   //imports: [CommonModule, FormsModule],
   templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.scss"],
+  styleUrls: ["./login.component.css"],
 })
 export class LoginComponent {
   constructor(private router: Router, private toastr: ToastrService) { }
