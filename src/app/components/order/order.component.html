@@ -14,10 +14,11 @@
     <div class="menu-selector">
       <!-- search bar and type selection start -->
       <!-- Search Bar -->
-      <div class="sticky-header">
+      <div [attr.class]="selectedCategory === 'Burger' || selectedCategory === 'Breakfast' ? 'sub-sticky-header' :'sticky-header'">
         <div class="search-container">
           <input type="text" [(ngModel)]="searchText" placeholder="Search Beverage..."
             (keyup.enter)="filteredAndSearchedMenu()" />
+          </div>
           <div class="hdr-action-buttons">
             <button class="view-cart-btn" style="margin-top: 0px !important;margin-right: 113px !important;"
               (click)="onClickViewCart()">🛒 View
@@ -25,7 +26,6 @@
             <button class="" style="margin-top: 0px !important;margin-right: 20px !important;"
               (click)="resetOrder()">Reset Order</button>
           </div>
-        </div>
 
         <!-- Category Buttons -->
         <div class="category-buttons">
@@ -34,15 +34,17 @@
             {{ category.name }}<br />
             <small>{{ category.count }} Items</small>
           </button>
-          <div class="subcategory-buttons" *ngIf="selectedCategory === 'Burger'">
-            <button [ngClass]="{ 'active': selectedSubCategory === 'veg' }" (click)="filterBySubCategory('veg')">
-              Veg
-            </button>
-            <button [ngClass]="{ 'active': selectedSubCategory === 'non-veg' }"
-              (click)="filterBySubCategory('non-veg')">
-              Non-Veg
-            </button>
-          </div>
+        </div>
+        <div class="subcategory-buttons" 
+        [attr.style]="selectedCategory === 'Burger'? 'margin-right:350px' : selectedCategory === 'Breakfast' ? 'margin-right:550px' : 'margin-right:0px'" 
+        *ngIf="selectedCategory === 'Burger' || selectedCategory === 'Breakfast'">
+          <button [ngClass]="{ 'active': selectedSubCategory === 'veg' }" (click)="filterBySubCategory('veg')">
+            Veg
+          </button>
+          <button [ngClass]="{ 'active': selectedSubCategory === 'non-veg' }"
+            (click)="filterBySubCategory('non-veg')">
+            Non-Veg
+          </button>
         </div>
       </div>
       <!-- search bar and type selection end -->
@@ -75,7 +77,7 @@
 
     <div *ngIf="selectedBeverage">
       <!-- <h2>{{ selectedBeverage | titlecase }} Beverages</h2> -->
-      <div class="menu-items">
+      <div [attr.class]="selectedCategory === 'Burger' ? 'sub-menu-items' :'menu-items'">
         <!-- <div *ngFor="let item of currentMenu; let i=index" class="menu-card"> -->
         <div *ngFor="let item of filteredMenuItems; let i=index" class="menu-card">
           <div class="veg-nonveg-icon">

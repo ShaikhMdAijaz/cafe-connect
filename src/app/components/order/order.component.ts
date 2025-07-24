@@ -112,9 +112,23 @@ export class OrderComponent implements OnInit {
     { menuID: 27, type: 'burger', subType: 'non-veg', code: 'NVBG001', description: 'Zinger Chicken Lava Burger', rate: 220, qty: 0, image: 'assets/images/zinger-cheese-chicken-bg.png' },
     { menuID: 32, type: 'burger', subType: 'non-veg', code: 'NVBG006', description: 'Chicken Maharaja Loaded Burger', rate: 220, qty: 0, image: 'assets/images/maharaja-chicken-bg.jpg' },
   ];
+  
+  toppingMenu: MenuItem[] = [
+    { menuID: 33, type: 'topping', subType: 'veg', code: 'TP001', description: 'Veg Mayo Dip', rate: 20, qty: 0, image: 'assets/images/veg-mayo_optimized.png' },
+    { menuID: 34, type: 'topping', subType: 'veg', code: 'TP002', description: 'Habenaro Dip', rate: 20, qty: 0, image: 'assets/images/habenaro-mayo_optimized.png' },
+    { menuID: 35, type: 'topping', subType: 'veg', code: 'TP003', description: 'Mustard Dip', rate: 20, qty: 0, image: 'assets/images/mustard-mayo.png' },
+    { menuID: 36, type: 'topping', subType: 'veg', code: 'TP004', description: 'Cheese slice', rate: 25, qty: 0, image: 'assets/images/cheese-slice.jpg' },
+    { menuID: 37, type: 'topping', subType: 'veg', code: 'TP005', description: 'Cheese Dip', rate: 25, qty: 0, image: 'assets/images/cheese-dip.webp' },
+    { menuID: 38, type: 'topping', subType: 'veg', code: 'TP006', description: 'Caramel Shot', rate: 35, qty: 0, image: 'assets/images/caramel-shot.jpg' },
+    { menuID: 39, type: 'topping', subType: 'veg', code: 'TP007', description: 'Chocolate Shot', rate: 35, qty: 0, image: 'assets/images/chocolate-shot.webp' },
+    { menuID: 40, type: 'topping', subType: 'veg', code: 'TP008', description: 'Hazelnut Shot', rate: 35, qty: 0, image: 'assets/images/hazelnut-shot_optimized.webp' },
+    { menuID: 41, type: 'topping', subType: 'veg', code: 'TP009', description: 'Extra Oreo Topping', rate: 25, qty: 0, image: 'assets/images/oreo-topping.jpg' },
+    { menuID: 42, type: 'topping', subType: 'veg', code: 'TP010', description: 'Extra Strawberry Topping', rate: 25, qty: 0, image: 'assets/images/strawberry-topping_optimized.jpg' },
+    { menuID: 43, type: 'topping', subType: 'veg', code: 'TP011', description: 'Extra Hotfudge Topping', rate: 25, qty: 0, image: 'assets/images/hotfudge-topping_optimized.webp' },
+  ];
 
   get currentMenu(): MenuItem[] {
-    return this.selectedBeverage == 'hot' ? this.hotMenu : this.selectedBeverage == 'cold' ? this.coldMenu : this.selectedBeverage == 'dessert' ? this.dessertMenu : this.selectedBeverage == 'breakfast' ? this.breakfastMenu : this.burgerMenu;
+    return this.selectedBeverage == 'hot' ? this.hotMenu : this.selectedBeverage == 'cold' ? this.coldMenu : this.selectedBeverage == 'dessert' ? this.dessertMenu : this.selectedBeverage == 'breakfast' ? this.breakfastMenu : this.selectedBeverage == 'cold'?this.burgerMenu : this.toppingMenu;
   }
 
   // selectItem(item: MenuItem): void {
@@ -330,6 +344,14 @@ export class OrderComponent implements OnInit {
               }
             });
           }
+          else if (event.item.type == 'topping') {
+            this.toppingMenu.forEach(item => {
+              if (item.menuID == event.item.menuID) {
+                item.qty = event.item.qty; // Update the qty in the toppingMenu
+                this.getCalculate(item);
+              }
+            });
+          }
         }
       }
     }
@@ -378,6 +400,14 @@ export class OrderComponent implements OnInit {
             }
           });
         }
+        else if (event.item.type == 'topping') {
+          this.toppingMenu.forEach(item => {
+            if (item.menuID == event.item.menuID) {
+              item.qty = event.item.qty; // Update the qty in the toppingMenu
+              this.getCalculate(item);
+            }
+          });
+        }
       }
     }
     else if (event.action == 'clearall') {
@@ -412,6 +442,7 @@ export class OrderComponent implements OnInit {
     { name: 'Hot Beverages', count: this.hotMenu.length},
     { name: 'Cold Beverages', count: this.coldMenu.length },
     { name: 'Dessert', count: this.dessertMenu.length },
+    { name: 'Topping', count: this.toppingMenu.length },
   ];
 
   public isBreakfastFlag: boolean = false;
@@ -430,9 +461,14 @@ export class OrderComponent implements OnInit {
     else if (category === 'Dessert') {
       this.filteredMenuItems = this.allMenu.filter(item => item.type === 'dessert');
     }
+    else if (category === 'Topping') {
+      this.filteredMenuItems = this.allMenu.filter(item => item.type === 'topping');
+    }
     else if (category === 'Breakfast') {
+      this.selectedSubCategory = 'veg'; // reset on main category click
       this.isBreakfastFlag = this.isBreakfastTime();
       this.filteredMenuItems = this.allMenu.filter(item => item.type === 'breakfast');
+      this.filterBySubCategory(this.selectedSubCategory); // filter by default sub-category
       if (!this.isBreakfastFlag) {
         //this.toastr.error("Breakfast is available only between 7:00 AM to 11:59 AM");
         alert("Breakfast is available only between 7:00 AM to 11:59 AM");
@@ -458,6 +494,11 @@ export class OrderComponent implements OnInit {
       item.type === 'burger' && item.subType?.toLowerCase() === subCategory.toLowerCase()
     );
   }
+  else if (this.selectedCategory === 'Breakfast') {
+    this.filteredMenuItems = this.allMenu.filter(item =>
+      item.type === 'breakfast' && item.subType?.toLowerCase() === subCategory.toLowerCase()
+    );
+  }
 }
 
   isBreakfastTime(): boolean {
@@ -473,6 +514,7 @@ export class OrderComponent implements OnInit {
     ...this.coldMenu,
     ...this.dessertMenu,
     ...this.breakfastMenu,
+    ...this.toppingMenu,
   ];
   filteredMenuItems: MenuItem[] = [];
 
