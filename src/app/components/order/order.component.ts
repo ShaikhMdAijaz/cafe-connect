@@ -66,21 +66,28 @@ export class OrderComponent implements OnInit {
   showCart = false;
 
   hotMenu: MenuItem[] = [
-    { menuID: 1, type: 'hot', subType: 'veg',code: 'HT001', description: 'Americano', rate: 100, qty: 0, image: 'assets/images/americano.jpg' },
-    { menuID: 2, type: 'hot', subType: 'veg',code: 'HT002', description: 'Cappuccino', rate: 150, qty: 0, image: 'assets/images/cappuccino.jpg' },
-    { menuID: 3, type: 'hot', subType: 'veg',code: 'HT003', description: 'Macchiato', rate: 180, qty: 0, image: 'assets/images/macchiato.jpg' }
+    { menuID: 1, type: 'hot', subType: '',code: 'HT001', description: 'Americano', rate: 100, qty: 0, image: 'assets/images/americano.jpg' },
+    { menuID: 2, type: 'hot', subType: '',code: 'HT002', description: 'Cappuccino', rate: 150, qty: 0, image: 'assets/images/cappuccino.jpg' },
+    { menuID: 3, type: 'hot', subType: '',code: 'HT003', description: 'Macchiato', rate: 160, qty: 0, image: 'assets/images/macchiato.jpg' },
+    { menuID: 44, type: 'hot', subType: '',code: 'HT004', description: 'Latte', rate: 180, qty: 0, image: 'assets/images/latte.jpg' },
+    { menuID: 45, type: 'hot', subType: '',code: 'HT005', description: 'Tea', rate: 70, qty: 0, image: 'assets/images/tea1.jpg' },
+    { menuID: 46, type: 'hot', subType: '',code: 'HT006', description: 'Black Tea', rate: 60, qty: 0, image: 'assets/images/black-tea.jpg' },
+    { menuID: 47, type: 'hot', subType: '',code: 'HT007', description: 'Lemon Tea', rate: 70, qty: 0, image: 'assets/images/lemon-tea.jpg' },
+    { menuID: 48, type: 'hot', subType: '',code: 'HT008', description: 'Espresso Shot', rate: 80, qty: 0, image: 'assets/images/espresso.webp' },
   ];
 
   coldMenu: MenuItem[] = [
-    { menuID: 4, type: 'cold',subType: 'veg', code: 'CD001', description: 'Chocolate Shake', rate: 170, qty: 0, image: 'assets/images/chocolate-shake.jpg' },
-    { menuID: 5, type: 'cold',subType: 'veg', code: 'CD002', description: 'American Mudpie Shake', rate: 220, qty: 0, image: 'assets/images/mudpie2.jpg' },
-    { menuID: 6, type: 'cold',subType: 'veg', code: 'CD003', description: 'Hazelnut Brownie Shake', rate: 280, qty: 0, image: 'assets/images/hazelnut.jpg' }
+    { menuID: 4, type: 'cold',subType: '', code: 'CD001', description: 'Chocolate Shake', rate: 170, qty: 0, image: 'assets/images/chocolate-shake.jpg' },
+    { menuID: 5, type: 'cold',subType: '', code: 'CD002', description: 'American Mudpie Shake', rate: 220, qty: 0, image: 'assets/images/mudpie3.png' },
+    { menuID: 6, type: 'cold',subType: '', code: 'CD003', description: 'Hazelnut Brownie Shake', rate: 280, qty: 0, image: 'assets/images/hazelnut.jpg' },
+    { menuID: 49, type: 'cold',subType: '', code: 'CD004', description: 'Cold Coffee Frappe', rate: 200, qty: 0, image: 'assets/images/cold-coffee.jpg' },
+    { menuID: 50, type: 'cold',subType: '', code: 'CD005', description: 'Iced Coffee', rate: 180, qty: 0, image: 'assets/images/iced-coffee.avif' },
   ];
 
   dessertMenu: MenuItem[] = [
-    { menuID: 7, type: 'dessert', subType: 'veg',code: 'DS001', description: 'Vanilla', rate: 70, qty: 0, image: 'assets/images/vanilla-dsrt.webp' },
-    { menuID: 8, type: 'dessert', subType: 'veg',code: 'DS002', description: 'Vanilla with Strawberry', rate: 100, qty: 0, image: 'assets/images/strawberry-dsrt.jpg' },
-    { menuID: 9, type: 'dessert', subType: 'veg',code: 'DS003', description: 'Hot Fudge', rate: 100, qty: 0, image: 'assets/images/hot-fudge-dsrt.webp' },
+    { menuID: 7, type: 'dessert', subType: 'veg',code: 'DS001', description: 'Vanilla', rate: 70, qty: 0, image: 'assets/images/vanilla-dsrt_3_512x400.webp' },
+    { menuID: 8, type: 'dessert', subType: 'veg',code: 'DS002', description: 'Vanilla with Strawberry', rate: 100, qty: 0, image: 'assets/images/strawberry-dsrt_3_312x200.jpg' },
+    { menuID: 9, type: 'dessert', subType: 'veg',code: 'DS003', description: 'Hot Fudge', rate: 100, qty: 0, image: 'assets/images/hot-fudge1.webp' },
     { menuID: 10, type: 'dessert',subType: 'veg', code: 'DS006', description: 'Vanilla with Oreo', rate: 130, qty: 0, image: 'assets/images/vanillaWithOreo-dsrt.avif' },
     { menuID: 11, type: 'dessert',subType: 'veg', code: 'DS004', description: 'Hot Fudge Brownie', rate: 150, qty: 0, image: 'assets/images/hotFudgeBrownie-dsrt.jpg' },
     { menuID: 12, type: 'dessert',subType: 'veg', code: 'DS005', description: 'Black Forest', rate: 180, qty: 0, image: 'assets/images/blackForest-dsrt.png' },
@@ -110,6 +117,7 @@ export class OrderComponent implements OnInit {
     { menuID: 28, type: 'burger', subType: 'non-veg', code: 'NVBG002', description: 'Grilled Cheese Chicken Burger', rate: 170, qty: 0, image: 'assets/images/grilled-chicken-bg.webp' },
     { menuID: 30, type: 'burger', subType: 'non-veg', code: 'NVBG004', description: 'Spicy Chicken Burger', rate: 200, qty: 0, image: 'assets/images/spicy-chicken-bg.jpg' },
     { menuID: 27, type: 'burger', subType: 'non-veg', code: 'NVBG001', description: 'Zinger Chicken Lava Burger', rate: 220, qty: 0, image: 'assets/images/zinger-cheese-chicken-bg.png' },
+    //{ menuID: 44, type: 'burger', subType: 'non-veg', code: 'NVBG007', description: 'Cream Barra Chicken Tandori', rate: 420, qty: 0, image: 'assets/images/cream-barra.jpg' },
     { menuID: 32, type: 'burger', subType: 'non-veg', code: 'NVBG006', description: 'Chicken Maharaja Loaded Burger', rate: 220, qty: 0, image: 'assets/images/maharaja-chicken-bg.jpg' },
   ];
   

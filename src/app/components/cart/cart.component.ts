@@ -61,7 +61,15 @@ export class CartComponent implements OnInit {
   closeCart() {
     this.close.emit(); // Parent will set showCart = false
   }
+  public isAddressExists: boolean = false;
   onClickAddToProceed() {
+    if((this.address.fullName === '' || this.address.mobile === '' || this.address.pincode === '' || this.address.flat === '' || this.address.area === '' || this.address.city === '' || this.address.state === '') && this.orderWillBe == 'take-away') {
+      this.toastr.error("Please fill all the required fields");
+      return;
+    }
+    else{
+      this.isAddressExists = true;
+    }
     this.addToProceed.emit({ item: this.cartItems, flag: true, order:this.orderWillBe }); // Parent will handle the proceed action
     this.closeCart(); // Optionally close the cart after proceeding
   }
@@ -75,6 +83,26 @@ export class CartComponent implements OnInit {
     else{
       this.toastr.error("There is no item to clear");
     }
+  }
+
+  address = {
+    fullName: '',
+    mobile: '',
+    pincode: '',
+    flat: '',
+    area: '',
+    landmark: '',
+    city: '',
+    state: '',
+    isDefault: false,
+    instructions: ''
+  };
+
+  states = ['Maharashtra', 'Karnataka', 'Delhi', 'Tamil Nadu', 'Gujarat', 'West Bengal'];
+
+  onSubmit() {
+    console.log('Submitted Address:', this.address);
+    // You can send this to API
   }
 
 }

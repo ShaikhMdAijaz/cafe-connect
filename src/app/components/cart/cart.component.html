@@ -9,6 +9,7 @@
 </div> -->
 
   <div class="cart-body">
+    <ng-container *ngIf="orderWillBe === 'take-away' || orderWillBe === 'dine-in' || isAddressExists"></ng-container>
     <div class="subcategory-buttons">
       <button [ngClass]="{ 'active': orderWillBe === 'dine-in' }" (click)="filterBySubCategory('dine-in')">
         Dine-in
@@ -17,7 +18,7 @@
         Take-away
       </button>
       <!-- <button (click)="confirmClearAll()" class="clear-cart" *ngIf="cartItems.length > 0">clear-all</button> -->
-      <a (click)="confirmClearAll()" [attr.class]="cartItems.length > 0 ? 'clear-cart' : 'disabled-btn'" 
+      <a (click)="confirmClearAll()" [attr.class]="cartItems.length > 0 ? 'clear-cart' : 'disabled-btn'"
         [disabled]="cartItems.length == 0">clear-all</a>
     </div>
     <div class="empty-cart-container" *ngIf="cartItems.length === 0">
@@ -38,9 +39,69 @@
         </div>
       </div>
       <div class="veg-nonveg-icon">
-            <img *ngIf="item.subType === 'veg'" src="assets/images/veg-icon.webp" alt="Veg" />
-            <img *ngIf="item.subType === 'non-veg'" src="assets/images/non-veg-icon.png" alt="Non-Veg" />
-          </div>
+        <img *ngIf="item.subType === 'veg'" src="assets/images/veg-icon.webp" alt="Veg" />
+        <img *ngIf="item.subType === 'non-veg'" src="assets/images/non-veg-icon.png" alt="Non-Veg" />
+      </div>
+    </div>
+
+    <!-- Only visible when Take-away is selected -->
+    <div *ngIf="orderWillBe === 'take-away' && !isAddressExists" class="address-form">
+      <!-- <form [formGroup]="addressForm"> -->
+        <div class="form-row">
+          <label>Full Name (First and Last name)</label>
+          <input type="text" name="fullName" [(ngModel)]="address.fullName" required placeholder="First and Last name" />
+        </div>
+
+        <div class="form-row">
+          <label>Mobile Number</label>
+          <input type="tel" name="mobile" [(ngModel)]="address.mobile" required pattern="[0-9]{10}" placeholder="10-digit mobile number" />
+        </div>
+
+        <div class="form-row">
+          <label>Pincode</label>
+          <input type="text" name="pincode" [(ngModel)]="address.pincode" required pattern="[0-9]{6}" placeholder="Enter Pincode" />
+        </div>
+
+        <div class="form-row">
+          <label>Flat, House no., Building, Apartment</label>
+          <input type="text" name="flat" [(ngModel)]="address.flat" required />
+        </div>
+
+        <div class="form-row">
+          <label>Area, Street, Sector, Village</label>
+          <input type="text" name="area" [(ngModel)]="address.area" required />
+        </div>
+
+        <div class="form-row">
+          <label>Landmark <small>(optional)</small></label>
+          <input type="text" name="landmark" [(ngModel)]="address.landmark" />
+        </div>
+
+        <div class="form-row">
+          <label>Town/City</label>
+          <input type="text" name="city" [(ngModel)]="address.city" required />
+        </div>
+
+        <div class="form-row">
+          <label>State</label>
+          <select formControlName="state">
+            <option value="">Choose a state</option>
+            <option *ngFor="let s of states" [value]="s">{{ s }}</option>
+          </select>
+        </div>
+
+        <div class="form-row checkbox-row">
+          <input type="checkbox" name="isDefault" [(ngModel)]="address.isDefault" />
+          <label>Make this my default address</label>
+        </div>
+
+        <div class="form-row">
+          <label>Delivery Instructions <small>(optional)</small></label>
+          <textarea name="instructions" [(ngModel)]="address.instructions"></textarea>
+        </div>
+
+        <button type="submit" [disabled]="!addressForm.form.valid" (click)="saveAddress()">Add Address</button>
+      <!-- </form> -->
     </div>
   </div>
 

@@ -77,7 +77,7 @@
 
     <div *ngIf="selectedBeverage">
       <!-- <h2>{{ selectedBeverage | titlecase }} Beverages</h2> -->
-      <div [attr.class]="selectedCategory === 'Burger' ? 'sub-menu-items' :'menu-items'">
+      <div [attr.class]="selectedCategory === 'Burger' || selectedCategory === 'Breakfast' ? 'sub-menu-items' :'menu-items'">
         <!-- <div *ngFor="let item of currentMenu; let i=index" class="menu-card"> -->
         <div *ngFor="let item of filteredMenuItems; let i=index" class="menu-card">
           <div class="veg-nonveg-icon">
