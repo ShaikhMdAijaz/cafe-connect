@@ -14,7 +14,8 @@ h1 {
 }
 
 p {
-  color: #666;
+  /* color: #666; */
+  color: #000000;
   line-height: 1.6;
 }
 
@@ -32,30 +33,31 @@ p {
 }
 
 .menu-selector {
-  margin: 1rem;
-  font-size: 1.2rem;
+  /* margin: 1rem;
+  font-size: 1.2rem; */
 }
 
 .menu-items {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin: 1rem;
+  margin-top: 170px;
+  /* gap: 1rem;
+  margin: 1rem; */
 }
 
 .menu-card {
   border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 1rem;
-  width: 200px;
+  /* padding: 1rem;
+  width: 200px; */
   background-color: #fefae0;
   text-align: center;
   /* font-family: 'Courier New', Courier, monospace; */
 }
 
 .menu-card img {
-  width: 100%;
-  height: 150px;
+  /* width: 100%;
+  height: 150px; */
   object-fit: cover;
   border-radius: 5px;
 }
@@ -96,8 +98,8 @@ button:hover {
 }
 
 .menu-card img {
-  width: 100%;
-  height: 180px;
+  /* width: 100%;
+  height: 180px; */
   object-fit: cover;
   border-radius: 5px;
 }
@@ -106,27 +108,29 @@ button:hover {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem;
+  margin-top: 170px;
+  /* gap: 1rem;
   margin: 1rem;
-  margin-top: 150px;
+  margin-top: 150px; */
 }
 .sub-menu-items {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem;
+  margin-top: 235px;
+  /* gap: 1rem;
   margin: 1rem;
-  margin-top: 200px;
+  margin-top: 200px; */
 }
 
 .menu-card {
   flex: 0 1 calc(33.333% - 2rem);
   /* 3 items per row, adjust spacing */
-  max-width: 300px;
-  min-width: 250px;
+  /* max-width: 300px;
+  min-width: 250px; */
   border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 1rem;
+  /* border-radius: 8px;
+  padding: 1rem; */
   background-color: #fefae0;
   text-align: center;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
@@ -188,9 +192,9 @@ button:hover {
 }
 
 .invoice-container {
-  max-width: 700px;
+  /* max-width: 700px;
   margin: 2rem auto;
-  padding: 2rem;
+  padding: 2rem; */
   border: 2px solid #000;
   /* font-family: 'Georgia', serif; */
   background-color: #fff;
@@ -282,14 +286,14 @@ button:hover {
   padding: 10px;
   font-weight: bold;
   border-radius: 6px; */
-  margin-top: 1rem;
+  /* margin-top: 1rem;
   float: right;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem; */
   background-color: #ffffff;
   border: 1px solid #ff9800;
   color: #ff9800;
-  cursor: pointer;
-  font-weight: 700;
+  /* cursor: pointer;
+  font-weight: 700; */
 }
 
 .view-cart-btn:hover {
@@ -300,50 +304,56 @@ button:hover {
 /*search bar and type selection css start */
 .search-container {
   text-align: center;
-  margin: 15px 0;
+  /* margin: 15px 0; */
 }
 
 .search-container input {
-  width: 60%;
+  /* width: 60%;
   padding: 10px;
-  border-radius: 20px;
+  border-radius: 20px; */
   border: 1px solid #ccc;
   outline: none;
-  font-size: 16px;
-  margin-right: 310px;
+  /* font-size: 16px;
+  margin-right: 310px; */
 }
 
 .category-buttons {
-  display: flex;
+  /* display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 30px;
       margin-top: 50px;
-    margin-left: -229px;
+    margin-left: -229px; */
+  background-color: #a6531b;
+  color: white;
+      line-height: 17px;
+    height: 42px;
 }
 
 .category-buttons button {
   background-color: #a6531b;
   color: white;
-  border: none;
+      line-height: 17px;
+    height: 42px;
+  /* border: none;
   padding: 8px 12px;
   border-radius: 8px;
   min-width: 100px;
   text-align: center;
   font-weight: bold;
   transition: 0.2s ease;
-  cursor: pointer;
+  cursor: pointer; */
 }
 
-.category-buttons button.active {
-  background-color: #ffc107;
+.category-buttons.active {
+  background-color: #ffc107 !important;
   color: black;
 }
 
 .category-buttons button small {
-  font-size: 11px;
-  display: block;
+  /* font-size: 11px;
+  display: block; */
   color: #f3f3f3;
 }
 
@@ -359,53 +369,59 @@ button:hover {
 
 .sticky-header {
   position: fixed;
-    width: 1400px;
+    /* width: 1400px;
     margin-left: -24px;
-    margin-top: -158px;
+    margin-top: -158px; */
   /* position: sticky;
   top: 0; */
+  top: 84px;
   background-color: #c9813d; /* Or your page background */
   z-index: 1000;
-  padding: 10px 0;
+  /* padding: 10px 0; */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional for visual separation */
 }
 .sub-sticky-header {
   position: fixed;
-    width: 1400px;
+    /* width: 1400px;
     margin-left: -24px;
-    margin-top: -208px;
+    margin-top: -208px; */
   /* position: sticky;
   top: 0; */
+  top: 84px;
   background-color: #c9813d; /* Or your page background */
   z-index: 1000;
-  padding: 10px 0;
+  /* padding: 10px 0; */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional for visual separation */
 }
 
 /* sub category btn start */
 .category-buttons {
-  display: flex;
+  /* display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: 10px; */    
+  line-height: 17px;
+  height: 42px;
 }
 
 .subcategory-buttons {
-  display: flex;
+  /* display: flex;
   justify-content: center;
   margin-top: 5px;
-  gap: 10px;
+  gap: 10px; */
+  background-color: #a6531b;
+  color: white;
 }
 
 .subcategory-buttons button {
-  padding: 10px 16px;
+  /* padding: 10px 16px; */
   background-color: #a45117;
   color: white;
-  border: none;
+  /* border: none;
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease; */
 }
 
 .subcategory-buttons .active {
@@ -426,3 +442,32 @@ button:hover {
   height: 100%;
 }
 
+.fixed-img {
+  width: 100%;       /* take full width of card */
+  height: 200px;     /* fixed height */
+  object-fit: cover; /* crop/zoom to fit without distortion */
+  border-radius: 8px 8px 0 0; /* match card style */
+}
+
+.menu-card1{
+  background-color: #fefae0;
+}
+
+/* .btn {
+  background: transparent;
+  border: none;
+  text-align: center;
+}
+
+.badge {
+  font-size: 0.75rem;
+  padding: 0.4em 0.6em;
+}
+.cart-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+  font-size: 0.75rem;
+  padding: 0.4em 0.6em;
+} */

@@ -1,117 +1,194 @@
-<!-- <app-header></app-header> -->
-<!-- <div class="page-container">
-  <h1>Welcome to Our Home Page</h1>
-  <p>This is the home page content.</p>
+<!-- Carousel Section -->
+<!-- <div class="container my-4 ml-0 p-0">
+  <div class="position-relative overflow-hidden carousel-container">
+    <div class="d-flex transition carousel-wrapper" [style.transform]="getTransform()">
+      <div class="carousel-item1 px-2" *ngFor="let item of products">
+        <img [src]="item.image" [alt]="item.name" class="img-fluid rounded" />
+      </div>
+    </div>
+    <button class="btn btn-dark position-absolute top-50 start-0 translate-middle-y z-index-1 nav left" style="margin-top: -250px;background-color: #e1d9ce !important;" (click)="prevSlide()">‹</button>
+    <button class="btn btn-dark position-absolute top-50 end-0 translate-middle-y z-index-1 nav right" style="margin-top: -250px;background-color: #e1d9ce !important;" (click)="nextSlide()">›</button>
+  </div>
 </div> -->
-<div class="carousel-container">
-  <div class="carousel-wrapper" [style.transform]="getTransform()">
-    <div class="carousel-item" *ngFor="let item of products">
-      <img [src]="item.image" [alt]="item.name" />
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li *ngFor="let item of products; let i = index"
+        [attr.data-target]="'#myCarousel'"
+        [attr.data-slide-to]="i"
+        [class.active]="i === 0">
+    </li>
+  </ol>
+
+  <!-- Slides -->
+  <div class="carousel-inner">
+    <div *ngFor="let item of products; let i = index"
+         class="carousel-item"
+         [class.active]="i === 0">
+      <img [src]="item.image"
+           [alt]="item.name"
+           class="d-block w-100 img-fluid rounded">
+
+      <div class="container">
+        <div class="carousel-caption text-left font-weight-bold">
+          <h5>{{ item.description }}</h5>
+          <p>{{ item.details }}</p>
+          <!-- Optional button -->
+          <!-- <p><a class="btn btn-primary btn-sm" href="#">Learn more</a></p> -->
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Manual Controls -->
-  <button class="nav left" (click)="prevSlide()">‹</button>
-  <button class="nav right" (click)="nextSlide()">›</button>
+  <!-- Controls -->
+  <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
 </div>
-<div class="highlight-section">
-  <div class="content">
-    <h2>Wake Up to Aroma</h2>
-    <p>
-      Our handcrafted coffee is made from freshly roasted premium Arabica beans, delivering a bold, aromatic flavor in every cup. Whether it's a strong espresso or a creamy cappuccino — every sip gives you a rich café experience.
-    </p>
-    <p>
-      Brewed with precision, blended with care — perfect for your morning spark or a cozy café moment.
-    </p>
-    <div class="rating">
-      ⭐ ⭐ ⭐ ⭐ ⭐ <strong>4.8 rated – loved by true coffee lovers</strong>
+
+<!-- <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class=""></li>
+      <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item">
+        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label=" :  " preserveAspectRatio="xMidYMid slice" focusable="false"><title> </title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em"> </text></svg>
+
+        <div class="container">
+          <div class="carousel-caption text-left">
+            <h1>Example headline.</h1>
+            <p>Some representative placeholder content for the first slide of the carousel.</p>
+            <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item active">
+        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label=" :  " preserveAspectRatio="xMidYMid slice" focusable="false"><title> </title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em"> </text></svg>
+
+        <div class="container">
+          <div class="carousel-caption">
+            <h1>Another example headline.</h1>
+            <p>Some representative placeholder content for the second slide of the carousel.</p>
+            <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label=" :  " preserveAspectRatio="xMidYMid slice" focusable="false"><title> </title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em"> </text></svg>
+
+        <div class="container">
+          <div class="carousel-caption text-right">
+            <h1>One more for good measure.</h1>
+            <p>Some representative placeholder content for the third slide of this carousel.</p>
+            <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+          </div>
+        </div>
+      </div>
     </div>
-    <button class="btn-order" (click)="onClickOrderNow('hot')">Order Now</button>
-  </div>
-  <!-- <div class="image">
-    <img src="assets/images/coffee.png" alt="Coffee">
+    <button class="carousel-control-prev" type="button" data-target="#myCarousel" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-target="#myCarousel" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </button>
   </div> -->
-  <div class="coffee-image-container">
-  <img src="assets/images/coffee-machine1.jpg" alt="Coffee Machine">
-</div>
-</div>
-<div class="highlight-section">
-  <div class="content">
-    <h2>Chill with Every Sip</h2>
-    <p>
-      Our milkshakes are a blend of velvety milk, real fruit, and creamy ice cream — whipped to perfection. From classic vanilla to exotic berry blends, each shake is a burst of cool, creamy joy.
-    </p>
-    <p>
-      No artificial flavors — only wholesome ingredients and rich textures for a delightful escape from the heat.
-    </p>
-    <div class="rating">
-      ⭐ ⭐ ⭐ ⭐ ⭐ <strong>4.9 rated – perfect summer refreshment</strong>
+
+<!-- Highlight Section: Coffee -->
+<div class="container-fluid my-5 highlight-section highlight-section">
+  <div class="row align-items-center">
+    <div class="col-md-6 content mb-4 mb-md-0">
+      <h2>Wake Up to Aroma</h2>
+      <p>Our handcrafted coffee is made from freshly roasted premium Arabica beans...</p>
+      <p>Brewed with precision, blended with care — perfect for your morning spark.</p>
+      <div class="rating mb-2">
+        ⭐⭐⭐⭐⭐ <strong>4.8 rated – loved by true coffee lovers</strong>
+      </div>
+      <button class="btn btn-order" (click)="onClickOrderNow('hot')">Order Now</button>
     </div>
-    <button class="btn-order" (click)="onClickOrderNow('cold')">Order Now</button>
-  </div>
-  <div class="shake-image-container">
-    <img src="assets/images/hmShake.jpg" alt="Milkshake">
-  </div>
-</div>
-<div class="highlight-section">
-  <div class="content" style="padding-right: 110px !important;">
-    <h2>Big Bites, Bigger Flavors</h2>
-    <p>
-      Sink your teeth into our juicy, handcrafted burgers – loaded with premium ingredients, sizzling patties, and bold sauces.
-      Whether you're a fan of classic cheese, fiery spice, or plant-powered patties – we've got a burger built just for you.
-    </p>
-    <p>
-      Loved by over <strong>4,000+ burger lovers</strong> and rated <strong>4.9 stars</strong> – our burgers are the talk of the town! 🍔🔥
-    </p>
-    <div class="rating">
-      ⭐ ⭐ ⭐ ⭐ ⭐ <strong>4.7 rated – perfect bites</strong>
+    <div class="col-md-6 text-center p-0 home-image-container">
+      <img src="assets/images/coffee-machine1.jpg" alt="Coffee Machine" class="img-fluid shadow">
     </div>
-    <button class="btn-order" (click)="onClickOrderNow('burger')">Order Now</button>
-  </div>
-  <div class="burger-image-container">
-    <img src="assets/images/cheese-corn-bg.jpg" alt="burger">
   </div>
 </div>
-<div class="highlight-section">
-  <div class="content" style="padding-right: 110px !important;">
-    <h2>Fuel Your Morning</h2>
-    <p>
-      Our breakfast menu is designed to kickstart your day with energy and flavor. Whether you're in the mood for a hearty bite or something light, we’ve got the perfect options waiting for you.
-      Enjoy freshly prepared sandwiches, fluffy pancakes, and nourishing smoothie bowls — all made with love and the finest ingredients.
-    </p>
-    <p>
-      Join the thousands who love our breakfast spread – rated <strong>4.8 stars</strong> by over <strong>3,500+ happy customers</strong> 🌟
-    </p>
-    <div class="rating">
-      ⭐ ⭐ ⭐ ⭐ ⭐ <strong>4.6 rated – perfect morning</strong>
+
+<!-- Highlight Section: Milkshake -->
+<div class="container-fluid my-5 highlight-section highlight-section">
+  <div class="row align-items-center flex-md-row-reverse">
+    <div class="col-md-6 content mb-4 mb-md-0">
+      <h2>Chill with Every Sip</h2>
+      <p>Our milkshakes are a blend of velvety milk, real fruit, and creamy ice cream...</p>
+      <p>No artificial flavors — only wholesome ingredients.</p>
+      <div class="rating mb-2">
+        ⭐⭐⭐⭐⭐ <strong>4.9 rated – perfect summer refreshment</strong>
+      </div>
+      <button class="btn btn-order" (click)="onClickOrderNow('cold')">Order Now</button>
     </div>
-    <button class="btn-order" (click)="onClickOrderNow('breakfast')">Order Now</button>
-  </div>
-  <div class="breakfast-image-container">
-    <img src="assets/images/egg&cheese-bf.jpg" alt="breakfast">
-    <!-- <img src="assets/images/scrambled-masala-egg-bf.jpg.webp" alt="breakfast"> -->
+    <div class="col-md-6 text-center p-0 home-image-container">
+      <img src="assets/images/hmShake.jpg" alt="Milkshake" class="img-fluid shadow">
+    </div>
   </div>
 </div>
-<div class="hero-section">
-  <div class="hero-content animate-slide-in">
-    <!-- <h1>Café Connect</h1>
-    <div class="">
-  
-</div> -->
-    <div class="rating dessert-content">
+
+<!-- Highlight Section: Burger -->
+<div class="container-fluid my-5 highlight-section highlight-section">
+  <div class="row align-items-center">
+    <div class="col-md-6 content mb-4 mb-md-0">
+      <h2>Big Bites, Bigger Flavors</h2>
+      <p>Sink your teeth into our juicy, handcrafted burgers...</p>
+      <p>Loved by over <strong>4,000+ burger lovers</strong> and rated <strong>4.9 stars</strong>.</p>
+      <div class="rating mb-2">
+        ⭐⭐⭐⭐⭐ <strong>4.7 rated – perfect bites</strong>
+      </div>
+      <button class="btn btn-order" (click)="onClickOrderNow('burger')">Order Now</button>
+    </div>
+    <div class="col-md-6 text-center p-0 home-image-container">
+      <img src="assets/images/cheese-corn-bg.jpg" alt="Burger" class="img-fluid shadow">
+    </div>
+  </div>
+</div>
+
+<!-- Highlight Section: Breakfast -->
+<div class="container-fluid my-5 highlight-section highlight-section">
+  <div class="row align-items-center flex-md-row-reverse">
+    <div class="col-md-6 content mb-4 mb-md-0">
+      <h2>Fuel Your Morning</h2>
+      <p>Our breakfast menu is designed to kickstart your day with energy and flavor...</p>
+      <p>Join the thousands who love our breakfast spread.</p>
+      <div class="rating mb-2">
+        ⭐⭐⭐⭐⭐ <strong>4.6 rated – perfect morning</strong>
+      </div>
+      <button class="btn btn-order" (click)="onClickOrderNow('breakfast')">Order Now</button>
+    </div>
+    <div class="col-md-6 text-center p-0 home-image-container">
+      <img src="assets/images/egg&cheese-bf.jpg" alt="Breakfast" class="img-fluid shadow">
+    </div>
+  </div>
+</div>
+
+<!-- Hero Section: Dessert -->
+<div class="container-fluid my-5 hero-section highlight-section">
+  <div class="row align-items-center">
+    <div class="col-md-6 mb-4 mb-md-0 animate-slide-in">
       <h2>Delight in Every Bite</h2>
-  <p>
-    Our desserts are crafted with premium ingredients and a passion for flavor. 
-    Every scoop is a celebration of rich, creamy textures and indulgent taste. 
-    Made from high-quality milk, hand-picked cookies, and love — just the way dessert should be.
-  </p>
-  <p>
-    Whether you're treating yourself or sharing with someone special, our frozen treats are the perfect way to sweeten your moment.
-  </p>
-      ⭐⭐⭐⭐⭐
-      <span>4.9 rated – over 4,000+ reviews</span>
-      <button class="order-btn" (click)="onClickOrderNow('dessert')">Order Now</button>
+      <p>Our desserts are crafted with premium ingredients and a passion for flavor...</p>
+      <p>Whether you're treating yourself or sharing with someone special...</p>
+      <div class="rating mb-2">
+        ⭐⭐⭐⭐⭐ <span>4.9 rated – over 4,000+ reviews</span>
+      </div>
+      <button class="btn btn-order" (click)="onClickOrderNow('dessert')">Order Now</button>
+    </div>
+    <div class="col-md-6 text-center p-0 home-image-container">
+      <img src="assets/images/vanillaWithOreo-dsrt.avif" alt="Dessert" class="img-fluid shadow">
     </div>
   </div>
-  <img class="dessert-image-container" src="assets/images/vanillaWithOreo-dsrt.avif" alt="Cafe Product" />
 </div>

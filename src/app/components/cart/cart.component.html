@@ -1,113 +1,233 @@
-<div class="cart-panel" *ngIf="isOpen">
-  <div class="cart-header">
-    <h2 class="label-white">Your Cart</h2>
-    <button class="close-btn" (click)="closeCart()">×</button>
-    <!-- <a class="label-white" (click)="clearCart()">Clear All</a> -->
-  </div>
-  <!-- <div class="cart-actions">
-  <button class="clear-btn" (click)="clearCart()">Clear All</button>
-</div> -->
+<div class="cart-panel" [ngClass]="{ 'open': isOpen }" *ngIf="isOpen">
 
-  <div class="cart-body">
-    <ng-container *ngIf="orderWillBe === 'take-away' || orderWillBe === 'dine-in' || isAddressExists"></ng-container>
-    <div class="subcategory-buttons">
-      <button [ngClass]="{ 'active': orderWillBe === 'dine-in' }" (click)="filterBySubCategory('dine-in')">
-        Dine-in
-      </button>
-      <button [ngClass]="{ 'active': orderWillBe === 'take-away' }" (click)="filterBySubCategory('take-away')">
-        Take-away
-      </button>
-      <!-- <button (click)="confirmClearAll()" class="clear-cart" *ngIf="cartItems.length > 0">clear-all</button> -->
-      <a (click)="confirmClearAll()" [attr.class]="cartItems.length > 0 ? 'clear-cart' : 'disabled-btn'"
-        [disabled]="cartItems.length == 0">clear-all</a>
-    </div>
-    <div class="empty-cart-container" *ngIf="cartItems.length === 0">
-      <div class="empty-cart-message">
-        <img src="assets/images/empty-cart.jpg" alt="Empty Cart" class="empty-cart-img" />
-        <!-- <p class="empty-cart-text">Oops! Your cart is empty. You haven’t placed any order yet.</p> -->
+  <!-- Header -->
+  <div class="bg-warning text-white p-2 d-flex justify-content-between align-items-center">
+    <h5 class="mb-0 fw-bold">Your Cart</h5>
+    <button class="btn btn-sm btn-light fw-bold" (click)="closeCart()">×</button>
+  </div>
+
+  <!-- Category buttons -->
+  <div class="p-2 bg-light text-center">
+    <ng-container *ngIf="(orderWillBe == 'take-away' && isAddressExists)|| orderWillBe == 'dine-in'">
+      <div class="btn-group">
+        <button class="btn btn-warning fw-bold" [class.active]="orderWillBe == 'dine-in'"
+          (click)="onClickHeaderBtn('dine-in')">Dine-in</button>
+        <button class="btn btn-warning fw-bold" [class.active]="orderWillBe == 'take-away'"
+          (click)="onClickHeaderBtn('take-away')">Take-away</button>
+        <button class="btn btn-danger fw-bold" (click)="confirmClearAll()"
+          [disabled]="cartItems.length == 0">clear-all</button>
       </div>
-    </div>
-    <div *ngFor="let item of cartItems" class="cart-item">
-      <img [src]="item.image" alt="Product" />
-      <div class="details">
-        <h4>{{ item.description }}</h4>
-        <p>₹ {{ item.rate }}</p>
-        <div class="quantity">
-          <button (click)="decrement(item)">-</button>
-          {{ item.qty }}
-          <button (click)="increment(item)">+</button>
+    </ng-container>
+  </div>
+
+  <!-- Cart Body -->
+  <div class="flex-grow-1 overflow-auto" style="background:#e5e0e0">
+    <!-- Empty Cart -->
+
+    <ng-container *ngIf="(isAddressExists && isDeliverFlag) || orderWillBe == 'dine-in'">
+      <div class="container text-center my-4" *ngIf="cartItems.length == 0">
+        <img src="assets/images/empty-cart.jpg" alt="Empty Cart" class="img-fluid mb-3" />
+        <!-- <p class="text-muted">Oops! Your cart is empty. You haven’t placed any order yet.</p> -->
+      </div>
+      <!-- Product Cards -->
+      <div *ngFor="let item of cartItems" class="card mb-2">
+        <div class="card-body d-flex align-items-center">
+
+          <!-- Product image -->
+          <img [src]="item.image" alt="Product" class="rounded me-2" style="width:60px;height:60px;object-fit:cover;" />
+
+          <!-- Product details -->
+          <div class="flex-grow-1 pl-2">
+            <h6 class="mb-1 fw-bold">{{ item.description }}</h6>
+            <p class="mb-1">₹ {{ item.rate }}</p>
+            <div class="btn-group btn-group-sm">
+              <button class="btn btn-warning text-white" (click)="decrement(item)">-</button>
+              <span class="btn btn-light">{{ item.qty }}</span>
+              <button class="btn btn-warning text-white" (click)="increment(item)">+</button>
+            </div>
+          </div>
+
+          <!-- Veg/Non-Veg -->
+          <div class="float-end">
+            <img *ngIf="item.subType == 'veg'" src="assets/images/veg-icon.webp" alt="Veg"
+              style="width:20px;height:20px;" />
+            <img *ngIf="item.subType == 'non-veg'" src="assets/images/non-veg-icon.png" alt="Non-Veg"
+              style="width:20px;height:20px;" />
+          </div>
+
         </div>
       </div>
-      <div class="veg-nonveg-icon">
-        <img *ngIf="item.subType === 'veg'" src="assets/images/veg-icon.webp" alt="Veg" />
-        <img *ngIf="item.subType === 'non-veg'" src="assets/images/non-veg-icon.png" alt="Non-Veg" />
-      </div>
-    </div>
+    </ng-container>
 
     <!-- Only visible when Take-away is selected -->
-    <div *ngIf="orderWillBe === 'take-away' && !isAddressExists" class="address-form">
+    <!-- Address Form -->
+    <div *ngIf="orderWillBe == 'take-away' && !isAddressExists" class="container my-4 p-1">
       <!-- <form [formGroup]="addressForm"> -->
-        <div class="form-row">
-          <label>Full Name (First and Last name)</label>
-          <input type="text" name="fullName" [(ngModel)]="address.fullName" required placeholder="First and Last name" />
-        </div>
+      <div class="mb-3 d-flex">
+        <button type="submit" class="btn btn-primary w-50 mr-1" (click)="saveAddress()">{{address.id > 0 ? 'Update Address' : 'Save Address'}}</button>
+        <button type="submit" class="btn btn-secondary" style="width: 158px;" (click)="onClickBack()">Back</button>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Full Name (First and Last name)<span class="required1">*</span></label>
+        <input type="text" class="form-control" name="fullName" [(ngModel)]="address.fullName" required
+          placeholder="First and Last name" />
+        <span class="required1" *ngIf="!isFormValid && address.fullName === ''">
+          Please Enter Full Name
+        </span>
+      </div>
 
-        <div class="form-row">
-          <label>Mobile Number</label>
-          <input type="tel" name="mobile" [(ngModel)]="address.mobile" required pattern="[0-9]{10}" placeholder="10-digit mobile number" />
-        </div>
+      <div class="mb-3">
+        <label class="form-label">Mobile Number<span class="required1">*</span></label>
+        <input type="tel" class="form-control" name="mobile" [(ngModel)]="address.mobile" required pattern="[0-9]{10}"
+          placeholder="10-digit mobile number" maxlength="10" (change)="onChangeMobileNo()"/>
+        <span class="required1" *ngIf="!isFormValid && address.mobile === ''">
+          Please Enter Mobile Number
+        </span>
+        <span class="required1" *ngIf="!inValidMobileNo">
+          Please Enter a valid 10-digit mobile number
+        </span>
+      </div>
 
-        <div class="form-row">
-          <label>Pincode</label>
-          <input type="text" name="pincode" [(ngModel)]="address.pincode" required pattern="[0-9]{6}" placeholder="Enter Pincode" />
-        </div>
+      <div class="mb-3">
+        <label class="form-label">Pincode<span class="required1">*</span></label>
+        <input type="text" class="form-control" name="pincode" [(ngModel)]="address.pincode" required pattern="[0-9]{6}"
+          placeholder="Enter Pincode" maxlength="6"/>
+        <span class="required1" *ngIf="!isFormValid && address.pincode === ''">
+          Please Enter Pincode
+        </span>
+      </div>
 
-        <div class="form-row">
-          <label>Flat, House no., Building, Apartment</label>
-          <input type="text" name="flat" [(ngModel)]="address.flat" required />
-        </div>
+      <div class="mb-3">
+        <label class="form-label">Flat, House no., Building, Apartment<span class="required1">*</span></label>
+        <input type="text" class="form-control" name="flat" [(ngModel)]="address.flat" required />
+        <span class="required1" *ngIf="!isFormValid && address.flat === ''">
+          Please Enter Flat, House no., Building, Apartment
+        </span>
+      </div>
 
-        <div class="form-row">
-          <label>Area, Street, Sector, Village</label>
-          <input type="text" name="area" [(ngModel)]="address.area" required />
-        </div>
+      <div class="mb-3">
+        <label class="form-label">Area, Street, Sector, Village<span class="required1">*</span></label>
+        <input type="text" class="form-control" name="area" [(ngModel)]="address.area" required />
+        <span class="required1" *ngIf="!isFormValid && address.area === ''">
+          Please Enter Area, Street, Sector, Village
+        </span>
+      </div>
 
-        <div class="form-row">
-          <label>Landmark <small>(optional)</small></label>
-          <input type="text" name="landmark" [(ngModel)]="address.landmark" />
-        </div>
+      <div class="mb-3">
+        <label class="form-label">Landmark <small class="text-muted">(optional)</small></label>
+        <input type="text" class="form-control" name="landmark" [(ngModel)]="address.landmark" />
+      </div>
 
-        <div class="form-row">
-          <label>Town/City</label>
-          <input type="text" name="city" [(ngModel)]="address.city" required />
-        </div>
+      <div class="mb-3">
+        <label class="form-label">Town/City<span class="required1">*</span></label>
+        <input type="text" class="form-control" name="city" [(ngModel)]="address.city" required />
+        <span class="required1" *ngIf="!isFormValid && address.city === ''">
+          Please Enter Town/City
+        </span>
+      </div>
 
-        <div class="form-row">
-          <label>State</label>
-          <select formControlName="state">
-            <option value="">Choose a state</option>
-            <option *ngFor="let s of states" [value]="s">{{ s }}</option>
-          </select>
-        </div>
+      <div class="mb-3">
+        <label class="form-label">State<span class="required1">*</span></label>
+        <select class="form-control" name="state" [(ngModel)]="address.state">
+          <option value="">Choose a state</option>
+          <!-- <option *ngFor="let s of states" [value]="s">{{ s }}</option> -->
+          <option *ngFor="let s of stateList" [value]="s.description">{{ s.description }}</option>
+        </select>
+        <span class="required1" *ngIf="!isFormValid && address.state === ''">
+          Please Select State
+        </span>
+      </div>
 
-        <div class="form-row checkbox-row">
-          <input type="checkbox" name="isDefault" [(ngModel)]="address.isDefault" />
-          <label>Make this my default address</label>
-        </div>
+      <div class="mb-3">
+        <label class="form-label">Address Type<span class="required1">*</span></label>
+        <select class="form-control" name="addressTypes" [(ngModel)]="address.addressType">
+          <option value="">Choose a address type</option>
+          <option *ngFor="let a of addressTypeList" [value]="a">{{ a }}</option>
+        </select>
+        <span class="required1" *ngIf="!isFormValid && address.state === ''">
+          Please Select State
+        </span>
+      </div>
 
-        <div class="form-row">
-          <label>Delivery Instructions <small>(optional)</small></label>
-          <textarea name="instructions" [(ngModel)]="address.instructions"></textarea>
-        </div>
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" name="isDefault" [(ngModel)]="address.isDefault"
+          id="defaultAddress" />
+        <label class="form-check-label" for="defaultAddress">Make this my default address</label>
+      </div>
 
-        <button type="submit" [disabled]="!addressForm.form.valid" (click)="saveAddress()">Add Address</button>
+      <div class="mb-3">
+        <label class="form-label">Delivery Instructions <small class="text-muted">(optional)</small></label>
+        <textarea class="form-control" name="instructions" [(ngModel)]="address.instructions" rows="3"></textarea>
+      </div>
+
+      <div class="mb-3">
+        <button class="btn btn-primary w-50 mr-1" (click)="saveAddress()">{{address.id > 0 ? 'Update Address' : 'Save Address'}}</button>
+        <button class="btn btn-secondary" style="width: 158px;" (click)="onClickBack()">Back</button>
+      </div>
       <!-- </form> -->
     </div>
+
+    <div class="container mt-3"
+      *ngIf="addressList.length>0 && isAddressSectionFlag && !isDeliverFlag && orderWillBe == 'take-away'">
+
+      <!-- Add new address -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <a href="javascript:void(0)" class="text-primary fw-bold" (click)="onClickNewAddress()">
+          <i class="bi bi-plus"></i> Add a new address
+        </a>
+      </div>
+
+      <!-- Address list -->
+      <div *ngFor="let address of addressList; let i = index" class="card mb-2 shadow-sm">
+        <div class="card-body d-flex align-items-start">
+
+          <!-- Radio button -->
+          <div class="form-check me-3">
+            <input class="form-check-input" type="radio" name="selectedAddress" [value]="i"
+              [(ngModel)]="selectedAddressIndex" />
+          </div>
+
+          <!-- Address details -->
+          <div class="flex-grow-1">
+            <h6 class="mb-1">
+              {{ address.name }}
+              <span class="badge bg-secondary ms-2">{{ address.type }}</span>
+            </h6>
+            <p class="mb-1 text-muted small">
+              {{ address.details }}
+            </p>
+            <p class="mb-0 fw-bold">{{ address.phone }}</p>
+          </div>
+
+          <!-- Edit button -->
+          <button class="btn btn-outline-primary btn-sm ms-3" (click)="onClickEditAddress(address.id)">
+            Edit
+          </button>
+          <!-- Delete button -->
+          <button class="btn btn-outline-danger btn-sm ms-3 ml-1" (click)="onClickDeleteAddress(address.id)">
+            Delete
+          </button>
+        </div>
+      </div>
+
+      <!-- Deliver button -->
+      <div class="mt-2 mb-2 text-center">
+        <button class="btn btn-primary w-100 fw-bold" (click)="onClickDeliver()">
+          DELIVER HERE
+        </button>
+      </div>
+    </div>
+
+
   </div>
 
-  <div class="cart-footer">
-    🛒 {{ totalItems }} Items | ₹ {{ totalAmount }}
-    <button class="addProceed-btn" (click)="closeCart()" *ngIf="cartItems.length === 0">Buy Now</button>
-    <button class="addProceed-btn" (click)="onClickAddToProceed()" *ngIf="cartItems.length > 0">Add To Proceed</button>
+  <!-- Footer -->
+  <div class="bg-dark text-white p-2 d-flex justify-content-between align-items-center">
+    <span class="fw-bold">{{ totalItems }} Items | ₹ {{ totalAmount | number:'1.2-2' }}</span>
+    <button class="btn btn-success fw-bold" (click)="onClickAddToProceed()"
+      [disabled]="cartItems.length == 0 || (orderWillBe == 'take-away' && !isAddressExists && !isDeliverFlag)">
+      Add To Proceed
+    </button>
   </div>
+
 </div>

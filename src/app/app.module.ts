@@ -8,12 +8,14 @@ import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { OrderComponent } from './components/order/order.component';
 import { AboutComponent } from './components/about/about.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { LoginComponent } from './components/login/login.component';
 import { CartComponent } from './components/cart/cart.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgxSpinnerModule,
      ToastrModule.forRoot({
       timeOut: 3500,
       positionClass: 'toast-top-right',
@@ -45,7 +50,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
        registrationStrategy: 'registerWhenStable:30000'
      }),
   ],
-  providers: [],
+  providers: [
+    { provide: 'BASE_URL', useValue: 'http://localhost:3000/' }
+  ],
 
   bootstrap: [AppComponent]
 })

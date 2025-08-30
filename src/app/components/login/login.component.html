@@ -21,7 +21,7 @@
     <input type="text" name="name" [(ngModel)]="user.name" required />
     
     <label style="color: white;">Mobile Number*</label>
-    <input type="tel" name="mobile" [(ngModel)]="user.mobile" required pattern="[6-9]\\d{9}" />
+    <input type="tel" name="mobile" [(ngModel)]="user.mobile" required pattern="[6-9]\\d{9}" maxlength="10"/>
 
     <div *ngIf="showOtpField" style="position: relative !important;">
       <label style="color: white;">OTP</label>

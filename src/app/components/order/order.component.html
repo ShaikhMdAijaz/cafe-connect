@@ -1,116 +1,112 @@
 <!-- <app-header></app-header> -->
-<div class="page-container">
+<div class="container-fluid page-container p-0">
   <ng-container *ngIf="!isInvoiceVisible">
-    <!-- <h1>Place Your Order</h1> -->
 
-    <!-- /* cafe-order.component.html */ -->
-    <!-- Simple layout for menu selection -->
-    <!-- <div class="header" style="background-color: #3d2b2b;">
-      <h1 *ngIf="selectedBeverage == 'hot'">Hot Beverages Menu</h1>
-      <h1 *ngIf="selectedBeverage == 'cold'">Cold Beverages Menu</h1>
-      <h1 *ngIf="selectedBeverage == 'dessert'">Desserts Menu</h1>
-    </div> -->
-
+    <!-- Menu Selector -->
     <div class="menu-selector">
-      <!-- search bar and type selection start -->
-      <!-- Search Bar -->
-      <div [attr.class]="selectedCategory === 'Burger' || selectedCategory === 'Breakfast' ? 'sub-sticky-header' :'sticky-header'">
-        <div class="search-container">
-          <input type="text" [(ngModel)]="searchText" placeholder="Search Beverage..."
-            (keyup.enter)="filteredAndSearchedMenu()" />
+      <div [attr.class]="selectedCategory === 'Burger' || selectedCategory === 'Breakfast' 
+          ? 'sub-sticky-header col-md-12 p-0' 
+          : 'sticky-header col-md-12 p-0'" class="bg-light p-2 rounded shadow-sm mb-3">
+
+        <!-- Search & Action Buttons Row -->
+        <div class="row align-items-center g-2">
+          <!-- Search Bar -->
+          <div class="col-md-6 col-12 mt-3">
+            <input type="text" class="form-control" [(ngModel)]="searchText" placeholder="Search Beverage..."
+              (keyup.enter)="filteredAndSearchedMenu()" />
           </div>
-          <div class="hdr-action-buttons">
-            <button class="view-cart-btn" style="margin-top: 0px !important;margin-right: 113px !important;"
-              (click)="onClickViewCart()">🛒 View
-              Cart</button>
-            <button class="" style="margin-top: 0px !important;margin-right: 20px !important;"
-              (click)="resetOrder()">Reset Order</button>
+
+          <!-- Action Buttons -->
+          <div class="col-md-6 col-12 d-flex flex-wrap justify-content-start">
+            <button class="btn me-2 mr-2" (click)="resetOrder()">
+              Reset Order
+            </button>
+            <button class="view-cart-btn" (click)="onClickViewCart()">
+              🛒 View Cart <span *ngIf="userCartDetails.length>0">({{userCartDetails.length}})</span> 
+            </button>
+            <!-- <button class="btn position-relative view-cart-btn" (click)="onClickViewCart()">
+  <i class="bi bi-cart3 fs-3"></i>
+  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+    {{ userCartDetails.length }}
+  </span>
+  <div class="small">Cart</div>
+</button>
+<button type="button" class="btn position-relative text-center view-cart-btn" (click)="onClickViewCart()">
+  <i class="fa fa-shopping-cart"></i>
+  <span class="badge badge-pill badge-primary cart-badge">
+    {{ userCartDetails.length }}
+  </span>
+  <div class="small">Cart</div>
+</button> -->
           </div>
+        </div>
 
         <!-- Category Buttons -->
-        <div class="category-buttons">
-          <button *ngFor="let category of categories" [ngClass]="{ 'active': selectedCategory === category.name }"
+        <div class="d-flex flex-wrap justify-content-start mt-3">
+          <!-- <button *ngFor="let category of categories" 
+            class="btn btn-sm me-2 mb-2 mr-2 category-buttons"
+            [ngClass]="{ 'active': selectedCategory == category.name}"
             (click)="filterByCategory(category.name)">
             {{ category.name }}<br />
             <small>{{ category.count }} Items</small>
+          </button> -->
+          <button *ngFor="let category of categories" class="btn-sm me-2 px-4 pt-1 mb-2 mr-2 category-buttons"
+            [ngClass]="{ 'active': selectedCategory == category.name}" (click)="filterByCategory(category.name)">
+            <span class="d-block">{{ category.name }}</span>
+            <small class="d-block">{{ category.count }} Items</small>
           </button>
         </div>
-        <div class="subcategory-buttons" 
-        [attr.style]="selectedCategory === 'Burger'? 'margin-right:350px' : selectedCategory === 'Breakfast' ? 'margin-right:550px' : 'margin-right:0px'" 
-        *ngIf="selectedCategory === 'Burger' || selectedCategory === 'Breakfast'">
-          <button [ngClass]="{ 'active': selectedSubCategory === 'veg' }" (click)="filterBySubCategory('veg')">
+
+        <!-- Subcategory Buttons -->
+        <div class="d-flex flex-wrap justify-content-start mt-1 mb-2"
+          *ngIf="selectedCategory == 'Burger' || selectedCategory == 'Breakfast'">
+          <button class="btn-sm me-2 mr-2 category-buttons" [ngClass]="{'active': selectedSubCategory == 'veg'}"
+            (click)="filterBySubCategory('veg')">
             Veg
           </button>
-          <button [ngClass]="{ 'active': selectedSubCategory === 'non-veg' }"
+          <button class="btn-sm category-buttons" [ngClass]="{ 'active': selectedSubCategory == 'non-veg'}"
             (click)="filterBySubCategory('non-veg')">
             Non-Veg
           </button>
         </div>
       </div>
-      <!-- search bar and type selection end -->
-      <!-- <div class="col-md-6">
-          <div class="row">
-            <div class="col-sm-5">
-              <label>Choose Beverage Type<span class="required1">*</span></label>
-            </div>
-            <div class="col-sm-7">
-              <select class="form-control" [(ngModel)]="selectedBeverage">
-                <option value="hot">Hot</option>
-                <option value="cold">Cold</option>
-                <option value="desert">Desert</option>
-              </select>
-            </div>
-          </div>
-        </div> -->
     </div>
 
-    <!-- <div *ngFor="let item of currentMenu" class="menu-card">
-      <img [src]="item.image" [alt]="item.description" />
-      <h3>{{ item.description }}</h3>
-      <p>Price: ₹{{ item.rate }}</p>
-    
-      <label>Qty:</label>
-      <input type="number" [(ngModel)]="item.qty" min="1" max="10" />
-    
-      <button (click)="selectItem(item)">Add to Bill</button>
-    </div> -->
+    <!-- Menu Items -->
+    <div *ngIf="selectedBeverage"
+      [attr.class]="selectedCategory == 'Burger' || selectedCategory == 'Breakfast' ? 'sub-menu-items' : 'menu-items'">
+      <div class="row g-3">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-2" *ngFor="let item of filteredMenuItems; let i = index">
 
-    <div *ngIf="selectedBeverage">
-      <!-- <h2>{{ selectedBeverage | titlecase }} Beverages</h2> -->
-      <div [attr.class]="selectedCategory === 'Burger' || selectedCategory === 'Breakfast' ? 'sub-menu-items' :'menu-items'">
-        <!-- <div *ngFor="let item of currentMenu; let i=index" class="menu-card"> -->
-        <div *ngFor="let item of filteredMenuItems; let i=index" class="menu-card">
-          <div class="veg-nonveg-icon">
-            <img *ngIf="item.subType === 'veg'" src="assets/images/veg-icon.webp" alt="Veg" />
-            <img *ngIf="item.subType === 'non-veg'" src="assets/images/non-veg-icon.png" alt="Non-Veg" />
+          <div class="card shadow-sm position-relative menu-card1">
+            <!-- Veg / Non-Veg Icon -->
+            <div class="position-absolute top-0 right-0 p-2">
+              <img *ngIf="item.subType === 'veg'" src="assets/images/veg-icon.webp" alt="Veg" width="20" height="20" />
+              <img *ngIf="item.subType === 'non-veg'" src="assets/images/non-veg-icon1.png" alt="Non-Veg" width="20"
+                height="20" />
+            </div>
+
+            <img [src]="item.image" class="card-img-top fixed-img" alt="{{ item.description }}">
+            <div class="card-body d-flex flex-column p-2">
+              <h6 class="card-title mb-1 font-weight-bold">{{ item.description }}</h6>
+              <p class="card-text mb-1">Price: ₹{{ item.rate }}</p>
+              <button class="mt-auto"
+                [ngClass]="item.type === 'breakfast' && !isBreakfastFlag ? 'disabled-btn' : 'add-btn'"
+                (click)="selectItem(item)" [disabled]="item.type === 'breakfast' && !isBreakfastFlag">
+                {{item.type === 'breakfast' && !isBreakfastFlag ? 'Breakfast Not Available' : 'Add+'}}
+              </button>
+            </div>
           </div>
-          <img [src]="item.image" alt="{{item.description}}">
-          <h3>{{ item.description }}</h3>
-          <p>Price: ₹{{ item.rate }}</p>
-          <!-- <label>Qty:</label>
-            <input type="number" [name]="('txtMaterialCode' +i)" [id]="('txtMaterialCodeID' +i)" [(ngModel)]="item.qty"
-              min="1" max="10"> -->
-          <button [attr.class]="item.type === 'breakfast' && !isBreakfastFlag ? 'disabled-btn':'add-btn'"
-            (click)="selectItem(item)" [disabled]="item.type === 'breakfast' && !isBreakfastFlag">
-            {{item.type === 'breakfast' && !isBreakfastFlag ? 'Breakfast Not Available' : 'Add'}}
-          </button>
-          <!-- <button *ngIf="item.qty == 0" class="add-btn" (click)="selectItem(item)">Add</button> -->
-          <!-- <div *ngIf="item.qty > 0" class="qty-box">
-              <button (click)="decrementQty(item)">−</button>
-              <span>{{ item.qty }}</span>
-              <button (click)="incrementQty(item)">+</button>
-              <button class="remove-btn" (click)="removeItem(item)">❌</button>
-            </div> -->
+
         </div>
       </div>
     </div>
+
   </ng-container>
-
-
-  <!-- Bill Summary -->
 </div>
+
 <!-- Cart side panel -->
 <app-cart [isOpen]="showCart" (close)="closeCartPop($event)" (addToProceed)="addToProceed($event)"
-  (itemIncrementDecrement)="itemIncrementDecrement($event)"></app-cart>
+  (itemIncrementDecrement)="itemIncrementDecrement($event)" [userID]="userDetails?.userID" [userDetails]="userDetails"></app-cart>
 <app-checkout [userBill]="userBill" [totalAmount]="totalAmount" [cgstAmount]="cgstAmount" [sgstAmount]="sgstAmount"
   [isInvoiceVisible]="isInvoiceVisible" (customizeOrder)="customizeOrder($event)" [order]="order"></app-checkout>

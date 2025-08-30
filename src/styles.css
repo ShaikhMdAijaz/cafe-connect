@@ -2,10 +2,13 @@
 /* .login-header{
     background-color: blanchedalmond;
 } */
-
+body{
+  font-family: 'Poppins', sans-serif;
+  /* font-size: 50px; */
+}
 .toggle-icon {
   position: absolute !important;
-  right: -8px !important;
+  right: 8px !important;
   cursor: pointer !important;
   color: #000000 !important;
   bottom: 8px !important;
