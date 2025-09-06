@@ -64,8 +64,14 @@
     <div *ngIf="orderWillBe == 'take-away' && !isAddressExists" class="container my-4 p-1">
       <!-- <form [formGroup]="addressForm"> -->
       <div class="mb-3 d-flex">
-        <button type="submit" class="btn btn-primary w-50 mr-1" (click)="saveAddress()">{{address.id > 0 ? 'Update Address' : 'Save Address'}}</button>
+        <button type="submit" class="btn btn-primary w-50 mr-1" (click)="saveAddress()">{{address.id > 0 ? 'Update
+          Address' : 'Save Address'}}</button>
         <button type="submit" class="btn btn-secondary" style="width: 158px;" (click)="onClickBack()">Back</button>
+      </div>
+      <div class="mb-3 d-flex">
+        <button type="button" class="btn btn-outline-primary mb-3" (click)="getCurrentLocation()">
+          📍 Use My Current Location
+        </button>
       </div>
       <div class="mb-3">
         <label class="form-label">Full Name (First and Last name)<span class="required1">*</span></label>
@@ -79,7 +85,7 @@
       <div class="mb-3">
         <label class="form-label">Mobile Number<span class="required1">*</span></label>
         <input type="tel" class="form-control" name="mobile" [(ngModel)]="address.mobile" required pattern="[0-9]{10}"
-          placeholder="10-digit mobile number" maxlength="10" (change)="onChangeMobileNo()"/>
+          placeholder="10-digit mobile number" maxlength="10" (change)="onChangeMobileNo()" />
         <span class="required1" *ngIf="!isFormValid && address.mobile === ''">
           Please Enter Mobile Number
         </span>
@@ -91,7 +97,7 @@
       <div class="mb-3">
         <label class="form-label">Pincode<span class="required1">*</span></label>
         <input type="text" class="form-control" name="pincode" [(ngModel)]="address.pincode" required pattern="[0-9]{6}"
-          placeholder="Enter Pincode" maxlength="6"/>
+          placeholder="Enter Pincode" maxlength="6" />
         <span class="required1" *ngIf="!isFormValid && address.pincode === ''">
           Please Enter Pincode
         </span>
@@ -161,7 +167,8 @@
       </div>
 
       <div class="mb-3">
-        <button class="btn btn-primary w-50 mr-1" (click)="saveAddress()">{{address.id > 0 ? 'Update Address' : 'Save Address'}}</button>
+        <button class="btn btn-primary w-50 mr-1" (click)="saveAddress()">{{address.id > 0 ? 'Update Address' : 'Save
+          Address'}}</button>
         <button class="btn btn-secondary" style="width: 158px;" (click)="onClickBack()">Back</button>
       </div>
       <!-- </form> -->
@@ -183,8 +190,9 @@
 
           <!-- Radio button -->
           <div class="form-check me-3">
-            <input class="form-check-input" type="radio" name="selectedAddress" [value]="i"
-              [(ngModel)]="selectedAddressIndex" />
+            <input class="form-check-input" type="radio" [name]="('txtSelectedAddress' +i)"
+              [id]="('txtSelectedAddressID' +i)" [value]="true" (change)="onChangeSelectAddress(address)"
+              [(ngModel)]="address.isDefaultAddress" />
           </div>
 
           <!-- Address details -->

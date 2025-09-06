@@ -83,6 +83,7 @@ export class OrderComponent implements OnInit {
   }
 
   public menuList: any = [];
+  originalMenuItems: MenuItem[] = []
   getMenuDetails() {
     this.progress.show();
     this.httpService.request('get', 'menu').subscribe((data) => {
@@ -103,7 +104,8 @@ export class OrderComponent implements OnInit {
         ...this.dessertMenu,
         ...this.breakfastMenu,
         ...this.toppingMenu,
-      ];
+      ];      
+      this.originalMenuItems = JSON.parse(JSON.stringify(this.allMenu));
       this.categories = [
         { name: 'All', count: this.breakfastMenu.length + this.burgerMenu.length + this.hotMenu.length + this.coldMenu.length + this.dessertMenu.length },
         { name: 'Breakfast', count: this.breakfastMenu.length },
@@ -359,6 +361,7 @@ export class OrderComponent implements OnInit {
 
   public isInvoiceVisible: boolean = false;
   public order: any = "";
+  public userAddress: any = "";
   addToProceed(event) {
     if (event != null && event != undefined) {
       this.totalAmount = 0;
@@ -399,6 +402,7 @@ export class OrderComponent implements OnInit {
         this.userBill = this.userBill.filter(bill => bill.qty > 0);
       }
       this.isInvoiceVisible = event.flag; // Show invoice section
+      this.userAddress = event.address;
       this.order = event.order == 'take-away' ? 'Take-away' : 'Dine-in';
       //this.router.navigate(["checkout"]);
     }
@@ -645,12 +649,34 @@ export class OrderComponent implements OnInit {
     ...this.breakfastMenu,
     ...this.toppingMenu,
   ];
-  filteredMenuItems: MenuItem[] = [];
-
-  get filteredAndSearchedMenu(): MenuItem[] {
-    return this.filteredMenuItems.filter(item =>
-      item.description.toLowerCase().includes(this.searchText.toLowerCase())
-    );
+  //filteredMenuItems: MenuItem[] = [];
+  filteredMenuItems: any=[];   
+  filteredAndSearchedMenu(value:any=""): MenuItem[] {
+    let sustaneMenuItems; //: MenuItem[];
+    sustaneMenuItems = JSON.parse(JSON.stringify(this.originalMenuItems));
+    if(value != null && value != undefined && value != ""){
+      const item = this.originalMenuItems.filter(item =>
+        item.description.toLowerCase().includes(this.searchText.toLowerCase())
+      );
+      //let isactive = this.categories.filter(x=> x.name == this.selectedCategory);
+      this.categories.forEach(x=> {
+        if(x.name == this.selectedCategory){
+          x.count = item.length;
+        }
+      });
+      //console.log("filteredValue :-", item);
+      return this.filteredMenuItems = item;
+    }
+    else{
+      const item = sustaneMenuItems;
+      this.categories.forEach(x=> {
+        if(x.name == this.selectedCategory){
+          x.count = item.length;
+        }
+      });
+      //console.log("filteredValue1 :-", item);
+      return this.filteredMenuItems = item;
+    }
   }
   //search bar and type selection end
 

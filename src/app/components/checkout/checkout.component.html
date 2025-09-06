@@ -11,7 +11,7 @@
         </div>
 
         <!-- Two-line Details -->
-        <div class="receipt-details">
+        <div class="receipt-details" *ngIf="order=='Dine-in'">
             <div class="left-detail">
                 <p><strong>Name:</strong> {{ customerName || 'Shaikh Aijaz' }}</p>
                 <p><strong>Mobile:</strong> {{ customerMobile || '9876543210' }}</p>
@@ -20,6 +20,19 @@
                 <p><strong>Invoice No:</strong> {{ billNo }}</p>
                 <p><strong>Date:</strong> {{ todayDate | date: 'dd MMM yyyy' }}</p>
             </div>
+        </div>
+        <div class="receipt-details" *ngIf="order=='Take-away'">
+            <!-- <div class="col-md-12"> -->
+                <div class="left-detail col-md-6">
+                    <p><strong>Name:</strong> {{ customerName || 'Shaikh Aijaz' }}</p>
+                    <p><strong>Mobile:</strong> {{ customerMobile || '9876543210' }}</p>
+                    <p><strong>Invoice No:</strong> {{ billNo }}</p>
+                    <p><strong>Date:</strong> {{ todayDate | date: 'dd MMM yyyy' }}</p>
+                </div>
+                <div class="right-detail col-md-6 text-right">
+                    <p><strong>Delivery Address:</strong> {{ userAddress }}</p>
+                </div>
+            <!-- </div> -->
         </div>
 
         <!-- Centered Table -->
@@ -53,9 +66,9 @@
 
         <!-- Centered Footer -->
         <div class="receipt-footer">
-            <p>** Thank you for visiting Vintage Café!! **</p>
+            <p>** Thank you for visiting Café Connect !! **</p>
             <p>Time: {{ todayDate | date: 'HH:mm' }}</p>
-            <button class="view-cart-btn" style="margin-top: 0px !important;" (click)="onClickCustomizeOrder()">🛒 Customize order</button>
+            <button class="view-cart-btn" (click)="onClickCustomizeOrder()">🛒 Customize order</button>
             <button (click)="printBill()">🖨 Print</button>
         </div>
 

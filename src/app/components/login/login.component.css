@@ -105,14 +105,16 @@ button {
   right: -0.5rem;
   width: 0.5rem;
   height: 0.75rem;
-  border: 2px solid #8B4513;
+  border: 2px solid #dfba89;
   border-left: none;
   border-radius: 0 8px 8px 0;
 }
 
 /* ========== STEAM ========== */
+
 .steam {
   position: absolute;
+  bottom: 60%; /* Start above the cup */
   width: 2px;
   height: 15px;
   background: rgba(255, 255, 255, 0.7);
@@ -122,6 +124,12 @@ button {
 .steam1 { left: 10px; animation-delay: 0s; }
 .steam2 { left: 20px; animation-delay: 0.5s; }
 .steam3 { left: 30px; animation-delay: 1s; }
+
+@keyframes steam {
+  0% { opacity: 0; transform: translateY(0) scaleX(1); }
+  50% { opacity: 1; transform: translateY(-5px) scaleX(1.2); }
+  100% { opacity: 0; transform: translateY(-15px) scaleX(1); }
+}
 
 /* ========== BRAND TEXT ========== */
 .brand-text {

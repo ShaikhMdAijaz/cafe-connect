@@ -89,14 +89,19 @@ export class CartComponent implements OnInit {
   onClickAddToProceed() {
     console.log("isAddressExists :-", this.isAddressExists);
     console.log("orderWillBe :-", this.orderWillBe);
-    if ((this.address.fullName === '' || this.address.mobile === '' || this.address.pincode === '' || this.address.flat === '' || this.address.area === '' || this.address.city === '' || this.address.state === '') && this.orderWillBe == 'take-away') {
+    let isDefaultExist:any=[]; 
+    if(this.addressList != null && this.addressList != undefined && this.addressList.length>0){
+      isDefaultExist = this.addressList.filter(x=> x.isDefaultAddress == true);
+    }
+    if(isDefaultExist.length == 0 && this.orderWillBe == 'take-away'){
+    //if ((this.address.fullName === '' || this.address.mobile === '' || this.address.pincode === '' || this.address.flat === '' || this.address.area === '' || this.address.city === '' || this.address.state === '') && this.orderWillBe == 'take-away') {
       this.toastr.error("Please fill all the required fields");
       return;
     }
     else {
       this.isAddressExists = true;
     }
-    this.addToProceed.emit({ item: this.cartItems, flag: true, order: this.orderWillBe }); // Parent will handle the proceed action
+    this.addToProceed.emit({ item: this.cartItems, flag: true, order: this.orderWillBe, address: isDefaultExist[0].details }); // Parent will handle the proceed action
     this.closeCart(); // Optionally close the cart after proceeding
   }
   confirmClearAll() {
@@ -225,18 +230,18 @@ export class CartComponent implements OnInit {
       this.userAddressDetails = data.data;
       if (data.error == "" || data.error == null) {
         if (this.userAddressDetails != null && this.userAddressDetails != undefined && this.userAddressDetails.length > 0) {
-          // Step 1: Find index of default address
-          let defaultIndex = this.userAddressDetails.findIndex(addr => addr.isDefaultAddress == "1");
+          // // Step 1: Find index of default address
+          // let defaultIndex = this.userAddressDetails.findIndex(addr => addr.isDefaultAddress == "1");
 
-          if (defaultIndex !== -1) {
-            // Step 2: If found, move it to first position
-            const [defaultAddress] = this.userAddressDetails.splice(defaultIndex, 1);
-            this.userAddressDetails.unshift(defaultAddress);
-          } 
-          else {
-            // Step 3: If not found, set first one as default
-            this.userAddressDetails[0].isDefaultAddress = true;
-          }
+          // if (defaultIndex !== -1) {
+          //   // Step 2: If found, move it to first position
+          //   const [defaultAddress] = this.userAddressDetails.splice(defaultIndex, 1);
+          //   this.userAddressDetails.unshift(defaultAddress);
+          // } 
+          // else {
+          //   // Step 3: If not found, set first one as default
+          //   this.userAddressDetails[0].isDefaultAddress = true;
+          // }
           this.addressList = [];
           this.isAddressExists = true;
           this.isAddressSectionFlag = true;
@@ -382,7 +387,25 @@ export class CartComponent implements OnInit {
 
   public isDeliverFlag: boolean = false;
   onClickDeliver() {
-    this.isDeliverFlag = true;
+    let isDefaultExist:any=[]; 
+    isDefaultExist = this.addressList.filter(x=> x.isDefaultAddress == true);
+    if(isDefaultExist != null && isDefaultExist != undefined && isDefaultExist.length>0){
+      this.isDeliverFlag = true;
+    }
+    else{
+      this.toastr.error("Please select address to deliver");
+    }
+  }
+
+  onChangeSelectAddress(item:any){
+    if(item != null && item != undefined && item != ""){
+      if(this.addressList != null && this.addressList != undefined && this.addressList.length>0){
+        this.addressList.forEach(x=> {
+          x.isDefaultAddress = false;
+        });
+      }
+      item.isDefaultAddress = true;
+    }
   }
 
   selectedAddressIndex = 0;
@@ -401,5 +424,41 @@ export class CartComponent implements OnInit {
   //   phone: '9892467361'
   // }
   //];
+
+  getCurrentLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+
+      console.log("Latitude: ", lat, "Longitude: ", lng);
+
+      // Call reverse geocode API here
+      this.reverseGeocode(lat, lng);
+    });
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+}
+
+//https://2.rome.api.flipkart.com/api/1/address/point-location?point=19.1397888,72.8367104
+//https://2.rome.api.flipkart.com/api/1/address/point-location?point=19.1397888,72.8367104
+reverseGeocode(lat: number, lng: number) {
+  fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
+    .then(res => res.json())
+    .then(data => {
+      console.log("Location Data:", data);
+
+      this.address.pincode = data.address.postcode || '';
+      this.address.area = data.address.suburb || data.address.road || '';
+      this.address.city = data.address.city || data.address.town || '';
+      this.address.state = data.address.state || '';
+      this.address.landmark = data.address.neighbourhood || '';
+      this.address.flat = data.address.house_number 
+                          ? `${data.address.house_number}, ${data.address.road || ''}` 
+                          : '';
+    })
+    .catch(err => console.error(err));
+}
 
 }

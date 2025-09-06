@@ -10,34 +10,54 @@
     <button class="btn btn-dark position-absolute top-50 end-0 translate-middle-y z-index-1 nav right" style="margin-top: -250px;background-color: #e1d9ce !important;" (click)="nextSlide()">›</button>
   </div>
 </div> -->
-
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
+<script>
+  $('#myCarousel').carousel({
+    interval: false
+  });
+</script>
+<div id="myCarousel" class="carousel slide" data-interval="false" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
-    <li *ngFor="let item of products; let i = index"
-        [attr.data-target]="'#myCarousel'"
-        [attr.data-slide-to]="i"
-        [class.active]="i === 0">
+    <li *ngFor="let item of products; let i = index" [attr.data-target]="'#myCarousel'" [attr.data-slide-to]="i"
+      [class.active]="i === 0">
     </li>
   </ol>
 
   <!-- Slides -->
   <div class="carousel-inner">
-    <div *ngFor="let item of products; let i = index"
-         class="carousel-item"
-         [class.active]="i === 0">
-      <img [src]="item.image"
-           [alt]="item.name"
-           class="d-block w-100 img-fluid rounded">
+    <div *ngFor="let item of products; let i = index" class="carousel-item" [class.active]="i === 0">
 
-      <div class="container">
-        <div class="carousel-caption text-left font-weight-bold">
-          <h5>{{ item.description }}</h5>
-          <p>{{ item.details }}</p>
-          <!-- Optional button -->
-          <!-- <p><a class="btn btn-primary btn-sm" href="#">Learn more</a></p> -->
+      <div class="row no-gutters align-items-center">
+        <!-- Left Side (70%) -->
+        <div class="col-12 col-md-9">
+          <img [src]="item.image" [alt]="item.name" class="img-fluid">
+        </div>
+
+        <!-- Right Side (30%) -->
+         <!-- <div class="col-12 col-md-3 d-flex flex-column justify-content-center p-4 bg-light text-center shadow-sm rounded-lg animate__animated animate__fadeInRight"> -->
+        <div
+          class="col-12 col-md-3 d-flex flex-column p-4 bg-light text-center shadow-sm animate__animated animate__fadeInRight"
+          style="height: 459px; background-color: #512d0b !important;">
+          <h5 class="font-weight-bold mb-3" style="color: bisque; font-size: 35px;">
+            {{ item.description }}
+          </h5>
+          <p class="mb-4" style="color: white;">
+            {{ item.details1 }}
+          </p>
+          <p class="mb-1" style="color: white;">
+            {{ item.details2 }}
+          </p>
+          <p class="mb-1" style="color: white;">
+            {{ item.details3 }}
+          </p>
+          <!-- <p class="rating mb-2">
+          ⭐⭐⭐⭐
+          <span class="font-weight-bold pr-2">⭐</span><strong>{{item.details3}}</strong>
+          </p> -->
+
         </div>
       </div>
+
     </div>
   </div>
 
@@ -51,6 +71,7 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
+
 
 <!-- <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">

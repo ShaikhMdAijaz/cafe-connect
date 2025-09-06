@@ -1,4 +1,5 @@
 <!-- <app-header></app-header> -->
+
 <div class="container-fluid page-container p-0">
   <ng-container *ngIf="!isInvoiceVisible">
 
@@ -13,7 +14,7 @@
           <!-- Search Bar -->
           <div class="col-md-6 col-12 mt-3">
             <input type="text" class="form-control" [(ngModel)]="searchText" placeholder="Search Beverage..."
-              (keyup.enter)="filteredAndSearchedMenu()" />
+              (input)="filteredAndSearchedMenu(searchText)" />
           </div>
 
           <!-- Action Buttons -->
@@ -74,7 +75,7 @@
 
     <!-- Menu Items -->
     <div *ngIf="selectedBeverage"
-      [attr.class]="selectedCategory == 'Burger' || selectedCategory == 'Breakfast' ? 'sub-menu-items' : 'menu-items'">
+      [attr.class]="selectedCategory == 'Burger' || selectedCategory == 'Breakfast' ? 'sub-menu-items d-block mx-2' : 'menu-items d-block mx-2'">
       <div class="row g-3">
         <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-2" *ngFor="let item of filteredMenuItems; let i = index">
 
@@ -109,4 +110,5 @@
 <app-cart [isOpen]="showCart" (close)="closeCartPop($event)" (addToProceed)="addToProceed($event)"
   (itemIncrementDecrement)="itemIncrementDecrement($event)" [userID]="userDetails?.userID" [userDetails]="userDetails"></app-cart>
 <app-checkout [userBill]="userBill" [totalAmount]="totalAmount" [cgstAmount]="cgstAmount" [sgstAmount]="sgstAmount"
-  [isInvoiceVisible]="isInvoiceVisible" (customizeOrder)="customizeOrder($event)" [order]="order"></app-checkout>
+  [isInvoiceVisible]="isInvoiceVisible" (customizeOrder)="customizeOrder($event)" [order]="order"
+  [userAddress]="userAddress"></app-checkout>
