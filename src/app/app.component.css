@@ -2,3 +2,9 @@
   /* min-height: calc(100vh - 70px);
   padding: 0.5rem; */
 }
+.copyright {
+    background-color: #5a2e01;
+    color: #ffffff;
+    margin: 0;
+    padding: 10px 10px;
+}

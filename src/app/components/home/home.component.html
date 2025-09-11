@@ -10,11 +10,11 @@
     <button class="btn btn-dark position-absolute top-50 end-0 translate-middle-y z-index-1 nav right" style="margin-top: -250px;background-color: #e1d9ce !important;" (click)="nextSlide()">›</button>
   </div>
 </div> -->
-<script>
+<!-- <script>
   $('#myCarousel').carousel({
     interval: false
   });
-</script>
+</script> -->
 <div id="myCarousel" class="carousel slide" data-interval="false" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
@@ -25,7 +25,7 @@
 
   <!-- Slides -->
   <div class="carousel-inner">
-    <div *ngFor="let item of products; let i = index" class="carousel-item" [class.active]="i === 0">
+    <div *ngFor="let item of products; let i = index" class="carousel-item" style="background-color: #512d0b !important;" [class.active]="i === 0">
 
       <div class="row no-gutters align-items-center">
         <!-- Left Side (70%) -->
@@ -35,9 +35,7 @@
 
         <!-- Right Side (30%) -->
          <!-- <div class="col-12 col-md-3 d-flex flex-column justify-content-center p-4 bg-light text-center shadow-sm rounded-lg animate__animated animate__fadeInRight"> -->
-        <div
-          class="col-12 col-md-3 d-flex flex-column p-4 bg-light text-center shadow-sm animate__animated animate__fadeInRight"
-          style="height: 459px; background-color: #512d0b !important;">
+        <div class="col-12 col-md-3 d-flex flex-column p-4 text-center shadow-sm animate__animated animate__fadeInRight">
           <h5 class="font-weight-bold mb-3" style="color: bisque; font-size: 35px;">
             {{ item.description }}
           </h5>
